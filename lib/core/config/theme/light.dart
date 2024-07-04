@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../route/custom_page_transition.dart';
 
-abstract final class LightTheme {
+sealed class LightTheme {
   static const Color _bgColor = Color(0xFFF5F5FA);
+  static const Color _primaryColor = Colors.amber;
   static const Color _surfaceColor = Color(0xFFDFE2EB);
   static const String _fontFamily = "Poppins";
 
@@ -10,10 +12,13 @@ abstract final class LightTheme {
     useMaterial3: true,
     fontFamily: _fontFamily,
     scaffoldBackgroundColor: _bgColor,
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
+    colorScheme: ColorScheme.fromSeed(seedColor: _primaryColor),
     appBarTheme: const AppBarTheme(
       backgroundColor: _bgColor,
       foregroundColor: Colors.black,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.light,
+      ),
     ),
     textTheme: const TextTheme(
       bodySmall: TextStyle(
@@ -22,6 +27,12 @@ abstract final class LightTheme {
           inherit: true, color: Colors.black, fontFamily: _fontFamily),
       bodyLarge: TextStyle(
           inherit: true, color: Colors.black, fontFamily: _fontFamily),
+    ),
+    filledButtonTheme: FilledButtonThemeData(
+      style: FilledButton.styleFrom(
+        backgroundColor: _primaryColor,
+        foregroundColor: Colors.black,
+      ),
     ),
     pageTransitionsTheme: PageTransitionsTheme(
       builders: {
