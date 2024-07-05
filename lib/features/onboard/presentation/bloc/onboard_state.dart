@@ -1,17 +1,20 @@
 part of 'onboard_bloc.dart';
 
 enum OnboardStatus {
-  unknown,
+  loading,
   onboarding,
   adminAccess,
+  unknown,
 }
 
 class OnboardState extends Equatable {
   final OnboardStatus status;
 
-  const OnboardState._({this.status = OnboardStatus.unknown});
+  const OnboardState._({this.status = OnboardStatus.loading});
 
-  const OnboardState.unknown() : this._();
+  const OnboardState.loading() : this._();
+
+  const OnboardState.unknown() : this._(status: OnboardStatus.unknown);
 
   const OnboardState.onboarding() : this._(status: OnboardStatus.onboarding);
 

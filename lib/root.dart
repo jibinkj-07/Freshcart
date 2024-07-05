@@ -16,7 +16,7 @@ class Root extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<OnboardBloc, OnboardState>(
       listener: (ctx, state) {
-        if (state.status == OnboardStatus.unknown) {
+        if (state.status == OnboardStatus.loading) {
           Navigator.pushReplacementNamed(context, RouteMapper.loading);
         } else if (state.status == OnboardStatus.onboarding) {
           Navigator.pushReplacementNamed(context, RouteMapper.onboard);

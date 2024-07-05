@@ -20,6 +20,9 @@ class OnboardBloc extends Bloc<OnboardEvent, OnboardState> {
             emit(const OnboardState.onboarding());
           } else if (isAdmin) {
             emit(const OnboardState.adminAccess());
+          } else {
+            // if user is not new and may be authenticated or not
+            emit(const OnboardState.unknown());
           }
           break;
         case SetIsNewUser():
@@ -31,5 +34,4 @@ class OnboardBloc extends Bloc<OnboardEvent, OnboardState> {
       }
     });
   }
-
 }
