@@ -1,11 +1,7 @@
-abstract class UserConfigRepo {
+abstract class OnboardRepo {
   bool getIsNewUser();
 
   Future<void> setIsNewUser({required bool isNew});
-
-  bool getIsAuthenticated();
-
-  Future<void> setIsAuthenticated({required bool isAuth});
 
   bool getIsAdmin();
 

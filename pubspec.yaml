@@ -10,6 +10,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.6
   flutter_bloc: ^8.1.6 # state management tool
+  equatable: ^2.0.5 # data comparison helper
   get_it: ^7.7.0 # dependency injection tool
   either_dart: ^1.0.0 # error handling helper
   hive_flutter: ^1.1.0 # local database

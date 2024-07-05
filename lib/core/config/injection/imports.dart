@@ -6,3 +6,7 @@ export 'package:flutter/material.dart';
 export 'package:hive_flutter/adapters.dart';
 export '../../../features/theme/data/data_source/theme_data_source.dart';
 export '../hive/hive_box.dart';
+export '../../../features/onboard/data/data_source/onboard_data_source.dart';
+export '../../../features/onboard/data/repo/onboard_repo_impl.dart';
+export '../../../features/onboard/domain/repo/onboard_repo.dart';
+export '../../../features/onboard/presentation/bloc/onboard_bloc.dart';
