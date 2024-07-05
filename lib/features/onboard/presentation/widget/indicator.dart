@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/config/route/route_mapper.dart';
+import '../view_model/onboard_helper.dart';
 
 /// @author : Jibin K John
 /// @date   : 04/07/2024
@@ -19,7 +19,7 @@ class Indicator extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-              onPressed: () => _getStarted(context),
+              onPressed: () => OnboardHelper.onGetStarted(context),
               style: TextButton.styleFrom(foregroundColor: Colors.grey),
               child: const Text("Skip"),
             ),
@@ -45,7 +45,7 @@ class Indicator extends StatelessWidget {
                   if (i != 2) {
                     index.value += 1;
                   } else {
-                    _getStarted(context);
+                    OnboardHelper.onGetStarted(context);
                   }
                 },
                 style: TextButton.styleFrom(foregroundColor: Colors.amber),
@@ -54,13 +54,5 @@ class Indicator extends StatelessWidget {
         );
       },
     );
-  }
-
-  // function to start the app from onboarding screen
-  void _getStarted(BuildContext context) {
-    // setting isNewUser to false
-
-    // routing to user home screen
-    Navigator.of(context).pushReplacementNamed(RouteMapper.userHomeScreen);
   }
 }
