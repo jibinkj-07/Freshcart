@@ -48,7 +48,6 @@ class Indicator extends StatelessWidget {
                     OnboardHelper.onGetStarted(context);
                   }
                 },
-                style: TextButton.styleFrom(foregroundColor: Colors.amber),
                 child: const Text("Next")),
           ],
         );

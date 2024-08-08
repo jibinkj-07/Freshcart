@@ -10,3 +10,13 @@ export '../../../features/onboard/data/data_source/onboard_data_source.dart';
 export '../../../features/onboard/data/repo/onboard_repo_impl.dart';
 export '../../../features/onboard/domain/repo/onboard_repo.dart';
 export '../../../features/onboard/presentation/bloc/onboard_bloc.dart';
+export 'package:firebase_auth/firebase_auth.dart';
+export 'package:firebase_database/firebase_database.dart';
+export 'package:firebase_storage/firebase_storage.dart';
+
+export '../../../features/common/data/data_source/user_cache_data_source.dart';
+export '../../../features/common/data/data_source/user_fb_data_source.dart';
+export '../../../features/common/data/model/user_model.dart';
+export '../../../features/common/data/repo/user_repo_impl.dart';
+export '../../../features/common/domain/repo/user_repo.dart';
+export '../../../features/common/presentation/bloc/user_bloc.dart';

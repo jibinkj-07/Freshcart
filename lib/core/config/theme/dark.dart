@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../config_helper.dart';
 import '../route/custom_page_transition.dart';
 
 sealed class DarkTheme {
   static const Color _bgColor = Color(0xFF121414);
-  static const Color _surfaceColor = Color(0xFF31343B);
+  static const Color _surfaceColor = Color(0xFF2E2F33);
   static const Color _primaryColor = Colors.amber;
-  static const String _fontFamily = "Poppins";
 
   static final schema = ThemeData(
     useMaterial3: true,
-    fontFamily: _fontFamily,
+    fontFamily: ConfigHelper.fontFamily,
     scaffoldBackgroundColor: _bgColor,
-    colorScheme: ColorScheme.fromSeed(seedColor: _primaryColor),
+    primaryColor: Colors.white,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: _primaryColor,
+      surface: _surfaceColor,
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: _bgColor,
       foregroundColor: Colors.white,
@@ -20,18 +24,32 @@ sealed class DarkTheme {
         statusBarBrightness: Brightness.dark,
       ),
     ),
-    textTheme: const TextTheme(
+    textTheme: TextTheme(
       bodySmall: TextStyle(
-          inherit: true, color: Colors.white, fontFamily: _fontFamily),
+        inherit: true,
+        color: Colors.white,
+        fontFamily: ConfigHelper.fontFamily,
+      ),
       bodyMedium: TextStyle(
-          inherit: true, color: Colors.white, fontFamily: _fontFamily),
+        inherit: true,
+        color: Colors.white,
+        fontFamily: ConfigHelper.fontFamily,
+      ),
       bodyLarge: TextStyle(
-          inherit: true, color: Colors.white, fontFamily: _fontFamily),
+        inherit: true,
+        color: Colors.white,
+        fontFamily: ConfigHelper.fontFamily,
+      ),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         backgroundColor: _primaryColor,
         foregroundColor: Colors.black,
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.amber,
       ),
     ),
     pageTransitionsTheme: PageTransitionsTheme(

@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../config_helper.dart';
 import '../route/custom_page_transition.dart';
 
 sealed class LightTheme {
   static const Color _bgColor = Color(0xFFF5F5FA);
   static const Color _primaryColor = Colors.amber;
-  static const Color _surfaceColor = Color(0xFFDFE2EB);
-  static const String _fontFamily = "Poppins";
+  static const Color _surfaceColor = Color(0xFFF2F5FC);
 
   static final schema = ThemeData(
     useMaterial3: true,
-    fontFamily: _fontFamily,
+    fontFamily: ConfigHelper.fontFamily,
+    primaryColor: Colors.black,
     scaffoldBackgroundColor: _bgColor,
-    colorScheme: ColorScheme.fromSeed(seedColor: _primaryColor),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: _primaryColor,
+      surface: _surfaceColor,
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: _bgColor,
       foregroundColor: Colors.black,
@@ -20,13 +24,27 @@ sealed class LightTheme {
         statusBarBrightness: Brightness.light,
       ),
     ),
-    textTheme: const TextTheme(
+    textTheme:  TextTheme(
       bodySmall: TextStyle(
-          inherit: true, color: Colors.black, fontFamily: _fontFamily),
+        inherit: true,
+        color: Colors.black,
+        fontFamily: ConfigHelper.fontFamily,
+      ),
       bodyMedium: TextStyle(
-          inherit: true, color: Colors.black, fontFamily: _fontFamily),
+        inherit: true,
+        color: Colors.black,
+        fontFamily: ConfigHelper.fontFamily,
+      ),
       bodyLarge: TextStyle(
-          inherit: true, color: Colors.black, fontFamily: _fontFamily),
+        inherit: true,
+        color: Colors.black,
+        fontFamily: ConfigHelper.fontFamily,
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.amber,
+      ),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
