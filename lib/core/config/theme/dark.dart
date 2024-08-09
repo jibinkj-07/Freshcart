@@ -52,6 +52,20 @@ sealed class DarkTheme {
         foregroundColor: Colors.amber,
       ),
     ),
+    listTileTheme: ListTileThemeData(
+      titleTextStyle: TextStyle(
+        inherit: true,
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+        fontFamily: ConfigHelper.fontFamily,
+      ),
+      subtitleTextStyle: TextStyle(
+        inherit: true,
+        color: Colors.grey,
+        fontFamily: ConfigHelper.fontFamily,
+        fontSize: 13.0,
+      ),
+    ),
     pageTransitionsTheme: PageTransitionsTheme(
       builders: {
         TargetPlatform.android: CustomPageTransitionBuilder(),

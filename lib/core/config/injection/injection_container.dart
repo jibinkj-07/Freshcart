@@ -9,7 +9,7 @@ Future<void> initDependencies() async {
   final storage = FirebaseStorage.instance;
 
   // Hive Boxes
-  final home = await Hive.openBox<ThemeMode>(HiveBox.themeBox);
+  final home = await Hive.openBox<String>(HiveBox.themeBox);
   final onboard = await Hive.openBox<bool>(HiveBox.onboardBox);
   final user = await Hive.openBox<UserModel>(HiveBox.userBox);
 
@@ -17,7 +17,7 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<FirebaseDatabase>(() => db);
   sl.registerLazySingleton<FirebaseStorage>(() => storage);
 
-  sl.registerLazySingleton<Box<ThemeMode>>(() => home);
+  sl.registerLazySingleton<Box<String>>(() => home);
   sl.registerLazySingleton<Box<bool>>(() => onboard);
   sl.registerLazySingleton<Box<UserModel>>(() => user);
 

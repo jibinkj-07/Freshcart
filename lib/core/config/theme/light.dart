@@ -24,7 +24,7 @@ sealed class LightTheme {
         statusBarBrightness: Brightness.light,
       ),
     ),
-    textTheme:  TextTheme(
+    textTheme: TextTheme(
       bodySmall: TextStyle(
         inherit: true,
         color: Colors.black,
@@ -50,6 +50,20 @@ sealed class LightTheme {
       style: FilledButton.styleFrom(
         backgroundColor: _primaryColor,
         foregroundColor: Colors.black,
+      ),
+    ),
+    listTileTheme: ListTileThemeData(
+      titleTextStyle: TextStyle(
+        inherit: true,
+        color: Colors.black,
+        fontWeight: FontWeight.w500,
+        fontFamily: ConfigHelper.fontFamily,
+      ),
+      subtitleTextStyle: TextStyle(
+        inherit: true,
+        color: Colors.grey,
+        fontFamily: ConfigHelper.fontFamily,
+        fontSize: 13.0,
       ),
     ),
     pageTransitionsTheme: PageTransitionsTheme(

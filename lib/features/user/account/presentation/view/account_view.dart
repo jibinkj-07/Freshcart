@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../common/presentation/bloc/user_bloc.dart';
+import '../widget/theme_selector.dart';
 
 /// @author : Jibin K John
 /// @date   : 08/08/2024
@@ -12,13 +10,10 @@ class AccountView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: Text("Check"),
-        onPressed: () {
-          context.read<UserBloc>().add(ConfigureUser());
-        },
-      ),
+    return ListView(
+      children: [
+       ThemeSelector(),
+      ],
     );
   }
 }

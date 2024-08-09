@@ -9,16 +9,34 @@ abstract class ThemeDataSource {
 }
 
 class ThemeDataSourceImpl implements ThemeDataSource {
-  final Box<ThemeMode> _themeBox;
+  final Box<String> _themeBox;
 
   ThemeDataSourceImpl(this._themeBox);
 
   @override
-  ThemeMode getAppTheme() =>
-      _themeBox.get(HiveKeys.themeKey) ?? ThemeMode.system;
+  ThemeMode getAppTheme() {
+    final mode = _themeBox.get(HiveKeys.themeKey, defaultValue: 'system');
+    switch (mode) {
+      case 'light':
+        return ThemeMode.light;
+      case 'dark':
+        return ThemeMode.dark;
+      default:
+        return ThemeMode.system;
+    }
+  }
 
   @override
   Future<void> setAppTheme({required ThemeMode theme}) async {
-    await _themeBox.put(HiveKeys.themeKey, theme);
+    switch (theme) {
+      case ThemeMode.light:
+        await _themeBox.put(HiveKeys.themeKey, 'light');
+        break;
+      case ThemeMode.dark:
+        await _themeBox.put(HiveKeys.themeKey, 'dark');
+        break;
+      default:
+        await _themeBox.put(HiveKeys.themeKey, 'system');
+    }
   }
 }
