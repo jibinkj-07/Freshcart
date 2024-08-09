@@ -5,10 +5,6 @@ abstract class OnboardDataSource {
   bool getIsNewUser();
 
   Future<void> setIsNewUser({required bool isNew});
-
-  bool getIsAdmin();
-
-  Future<void> setIsAdmin({required bool isAdmin});
 }
 
 class OnboardDataSourceImpl implements OnboardDataSource {
@@ -17,20 +13,7 @@ class OnboardDataSourceImpl implements OnboardDataSource {
   OnboardDataSourceImpl(this._onboardBox);
 
   @override
-  bool getIsAdmin() =>
-      _onboardBox.get(HiveKeys.onboardIsAdminKey) ?? false;
-
-
-  @override
-  bool getIsNewUser() =>
-      _onboardBox.get(HiveKeys.onboardIsNewKey) ?? true;
-
-  @override
-  Future<void> setIsAdmin({required bool isAdmin}) async =>
-      await _onboardBox.put(
-        HiveKeys.onboardIsAdminKey,
-        isAdmin,
-      );
+  bool getIsNewUser() => _onboardBox.get(HiveKeys.onboardIsNewKey) ?? true;
 
   @override
   Future<void> setIsNewUser({required bool isNew}) async =>

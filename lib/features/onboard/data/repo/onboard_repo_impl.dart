@@ -7,16 +7,7 @@ class OnboardRepoImpl implements OnboardRepo {
   OnboardRepoImpl(this._configDataSource);
 
   @override
-  bool getIsAdmin() => _configDataSource.getIsAdmin();
-
-
-  @override
   bool getIsNewUser() => _configDataSource.getIsNewUser();
-
-  @override
-  Future<void> setIsAdmin({required bool isAdmin}) async =>
-      await _configDataSource.setIsAdmin(isAdmin: isAdmin);
-
 
   @override
   Future<void> setIsNewUser({required bool isNew}) async =>

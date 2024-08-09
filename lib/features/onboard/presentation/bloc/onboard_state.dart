@@ -2,9 +2,8 @@ part of 'onboard_bloc.dart';
 
 enum OnboardStatus {
   loading,
-  onboarding,
-  adminAccess,
-  unknown,
+  onboard,
+  onboarded,
 }
 
 class OnboardState extends Equatable {
@@ -14,11 +13,9 @@ class OnboardState extends Equatable {
 
   const OnboardState.loading() : this._();
 
-  const OnboardState.unknown() : this._(status: OnboardStatus.unknown);
+  const OnboardState.onboard() : this._(status: OnboardStatus.onboard);
 
-  const OnboardState.onboarding() : this._(status: OnboardStatus.onboarding);
-
-  const OnboardState.adminAccess() : this._(status: OnboardStatus.adminAccess);
+  const OnboardState.onboarded() : this._(status: OnboardStatus.onboarded);
 
   @override
   List<Object> get props => [status];

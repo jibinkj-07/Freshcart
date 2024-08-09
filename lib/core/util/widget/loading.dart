@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../config/theme/dark.dart';
+import '../helper/asset_mapper.dart';
 
 /// @author : Jibin K John
 /// @date   : 05/07/2024
@@ -9,8 +13,16 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()),
+    final size = MediaQuery.sizeOf(context);
+    return Scaffold(
+      body: Center(
+        child: Lottie.asset(
+          Theme.of(context).scaffoldBackgroundColor == DarkTheme.bgColor
+              ? AssetMapper.loadingDarkLottie
+              : AssetMapper.loadingLottie,
+          width: size.width * .5,
+        ),
+      ),
     );
   }
 }

@@ -6,4 +6,6 @@ sealed class AssetMapper {
 
   /// ---------------------- LOTTIE FILES -------------------------
   static const String emptyBoxLottie = "assets/animation/empty-box.json";
+  static const String loadingLottie = "assets/animation/loading.json";
+  static const String loadingDarkLottie = "assets/animation/loading-dark.json";
 }

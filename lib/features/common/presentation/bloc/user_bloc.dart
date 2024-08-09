@@ -20,6 +20,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     this._userRepo,
     this._firebaseAuth,
   ) : super(const UserState.fetching()) {
+    log("user bloc created");
     on<CheckUserAuthentication>(_checkUserAuthentication);
     on<CheckUserEmailVerification>(_checkUserEmailVerification);
     on<GetUserDetail>(_getUserDetail);
@@ -68,7 +69,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     ConfigureUser event,
     Emitter<UserState> emit,
   ) async {
-    log("called");
     try {
       // Checking if user is authenticated or not
       if (!await _userRepo.userAuthenticated()) {
@@ -114,5 +114,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       log("er[_configureUser][user_bloc.dart] $e");
       emit(const UserState.error("Something went wrong. Try again"));
     }
+  }
+
+  @override
+  void onEvent(UserEvent event) {
+    super.onEvent(event);
+    log("Event dispatched: $event");
   }
 }

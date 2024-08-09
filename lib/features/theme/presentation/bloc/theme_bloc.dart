@@ -27,4 +27,10 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       }
     });
   }
+
+  @override
+  void onEvent(ThemeEvent event) {
+    super.onEvent(event);
+    log("Event dispatched: $event");
+  }
 }

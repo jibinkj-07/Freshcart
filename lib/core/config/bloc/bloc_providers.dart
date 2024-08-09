@@ -7,14 +7,8 @@ import '../injection/injection_container.dart';
 
 sealed class BlocProviders {
   static List<SingleChildWidget> get list => [
-        BlocProvider<UserBloc>(
-          create: (_) => sl<UserBloc>()..add(ConfigureUser()),
-        ),
-        BlocProvider<ThemeBloc>(
-          create: (_) => sl<ThemeBloc>()..add(GetAppTheme()),
-        ),
-        BlocProvider<OnboardBloc>(
-          create: (_) => sl<OnboardBloc>()..add(AppStarted()),
-        ),
+        BlocProvider<ThemeBloc>(create: (_) => sl<ThemeBloc>()),
+        BlocProvider<OnboardBloc>(create: (_) => sl<OnboardBloc>()),
+        BlocProvider<UserBloc>(create: (_) => sl<UserBloc>()),
       ];
 }
