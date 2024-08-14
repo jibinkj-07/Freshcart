@@ -4,4 +4,7 @@ sealed class RouteMapper {
   static const String onboard = '/onboard';
   static const String userHomeScreen = '/user-home-screen';
   static const String adminHomeScreen = '/admin-home-screen';
+  static const String userFaqScreen = '/user-faq-screen';
+  static const String bugReportScreen = '/bug-report-screen';
+  static const String feedbackScreen = '/feedback-screen';
 }

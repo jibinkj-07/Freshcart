@@ -6,7 +6,7 @@ import '../route/custom_page_transition.dart';
 sealed class DarkTheme {
   static const Color bgColor = Color(0xFF121414);
   static const Color _surfaceColor = Color(0xFF2E2F33);
-  static const Color _primaryColor = Colors.amber;
+  static final Color _primaryColor = ConfigHelper.appColor;
 
   static final schema = ThemeData(
     useMaterial3: true,
@@ -16,6 +16,7 @@ sealed class DarkTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: _primaryColor,
       surface: _surfaceColor,
+      onSurface: Colors.white,
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: bgColor,
@@ -43,13 +44,13 @@ sealed class DarkTheme {
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
-        backgroundColor: _primaryColor,
+        backgroundColor: Colors.amber.shade200,
         foregroundColor: Colors.black,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: Colors.amber,
+        foregroundColor: ConfigHelper.appColor,
       ),
     ),
     listTileTheme: ListTileThemeData(

@@ -5,8 +5,8 @@ import '../route/custom_page_transition.dart';
 
 sealed class LightTheme {
   static const Color _bgColor = Color(0xFFF5F5FA);
-  static const Color _primaryColor = Colors.amber;
-  static const Color _surfaceColor = Color(0xFFF2F5FC);
+  static final Color _primaryColor = ConfigHelper.appColor;
+  static const Color _surfaceColor = Color(0xFFE9E9F5);
 
   static final schema = ThemeData(
     useMaterial3: true,
@@ -43,12 +43,12 @@ sealed class LightTheme {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: Colors.amber,
+        foregroundColor: ConfigHelper.appColor,
       ),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
-        backgroundColor: _primaryColor,
+        backgroundColor: Colors.amber.shade200,
         foregroundColor: Colors.black,
       ),
     ),
