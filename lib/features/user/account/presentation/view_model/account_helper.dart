@@ -43,7 +43,6 @@ sealed class AccountHelper {
       "provide the best user experience. Please take a moment to share your thoughts,"
       " ideas, and concerns with us";
 
-
   static Future<Either<Failure, bool>> reportBug({
     required String userId,
     required String bug,
@@ -70,7 +69,6 @@ sealed class AccountHelper {
           .child('${time.millisecondsSinceEpoch}')
           .set(
         {
-          'time': time.millisecondsSinceEpoch,
           'report': bug,
           'imageUrl': uploadedUrl,
         },
@@ -97,7 +95,6 @@ sealed class AccountHelper {
           .child('${time.millisecondsSinceEpoch}')
           .set(
         {
-          'time': time.millisecondsSinceEpoch,
           'feedback': feedback,
         },
       );
