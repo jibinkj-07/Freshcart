@@ -19,4 +19,4 @@ export '../../../features/common/data/data_source/user_fb_data_source.dart';
 export '../../../features/common/data/model/user_model.dart';
 export '../../../features/common/data/repo/user_repo_impl.dart';
 export '../../../features/common/domain/repo/user_repo.dart';
-export '../../../features/common/presentation/bloc/user_bloc.dart';
+export '../../../features/common/presentation/bloc/auth_bloc.dart';

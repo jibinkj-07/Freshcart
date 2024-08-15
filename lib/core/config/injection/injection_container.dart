@@ -1,3 +1,4 @@
+
 import './imports.dart';
 
 final sl = GetIt.instance;
@@ -35,5 +36,5 @@ Future<void> initDependencies() async {
   // **************************************** Bloc ****************************************
   sl.registerSingleton<ThemeBloc>(ThemeBloc(sl()));
   sl.registerSingleton<OnboardBloc>(OnboardBloc(sl()));
-  sl.registerSingleton<UserBloc>(UserBloc(sl(), sl()));
+  sl.registerSingleton<AuthBloc>(AuthBloc(sl(), sl()));
 }

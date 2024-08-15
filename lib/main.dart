@@ -10,7 +10,7 @@ import 'core/config/route/app_routes.dart';
 import 'core/config/route/route_mapper.dart';
 import 'core/config/theme/dark.dart';
 import 'core/config/theme/light.dart';
-import 'features/common/presentation/bloc/user_bloc.dart';
+import 'features/common/presentation/bloc/auth_bloc.dart';
 import 'features/onboard/presentation/bloc/onboard_bloc.dart';
 import 'features/theme/presentation/bloc/theme_bloc.dart';
 import 'firebase_options.dart';
@@ -27,7 +27,7 @@ Future<void> main() async {
 
   sl<OnboardBloc>().add(AppStarted());
   sl<ThemeBloc>().add(GetAppTheme());
-  sl<UserBloc>().add(ConfigureUser());
+  sl<AuthBloc>().add(InitUser());
 
   // restricting application orientation to portrait only
   SystemChrome.setPreferredOrientations([
@@ -48,15 +48,17 @@ class FreshcartApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(builder: (ctx, state) {
-      return MaterialApp(
-        title: ConfigHelper.appName,
-        theme: LightTheme.schema,
-        darkTheme: DarkTheme.schema,
-        themeMode: state.themeMode,
-        initialRoute: RouteMapper.root,
-        onGenerateRoute: AppRoutes.generate,
-      );
-    });
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (ctx, state) {
+        return MaterialApp(
+          title: ConfigHelper.appName,
+          theme: LightTheme.schema,
+          darkTheme: DarkTheme.schema,
+          themeMode: state.themeMode,
+          initialRoute: RouteMapper.root,
+          onGenerateRoute: AppRoutes.generate,
+        );
+      },
+    );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/util/widget/custom_snackbar.dart';
 import '../../../../../../core/util/widget/custom_text_field.dart';
-import '../../../../../common/presentation/bloc/user_bloc.dart';
+import '../../../../../common/presentation/bloc/auth_bloc.dart';
 import '../../view_model/account_helper.dart';
 import '../../widget/account_widget_helper.dart';
 
@@ -85,9 +85,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     if (_formKey.currentState!.validate()) {
       _loading.value = true;
       FocusScope.of(context).unfocus();
-      final userBloc = context.read<UserBloc>();
+      final userBloc = context.read<AuthBloc>();
       AccountHelper.submitFeedback(
-        userId: userBloc.state.userDetail?.uid ?? "unknown_user",
+        userId: userBloc.state.userInfo?.uid ?? "unknown_user",
         feedback: _feedback.text,
       ).then(
         (value) {

@@ -6,7 +6,7 @@ import '../../../../../../core/util/helper/asset_mapper.dart';
 import '../../../../../../core/util/mixin/validation_mixin.dart';
 import '../../../../../../core/util/widget/animated_loading_button.dart';
 import '../../../../../../core/util/widget/custom_text_field.dart';
-import '../../../../../common/presentation/bloc/user_bloc.dart';
+import '../../../../../common/presentation/bloc/auth_bloc.dart';
 import '../../widget/account_widget_helper.dart';
 
 /// @author : Jibin K John
@@ -39,19 +39,19 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<UserBloc, UserState>(
+      body: BlocListener<AuthBloc, AuthState>(
         listener: (ctx, state) {
           // Updating loading variable
-          _loading.value = state.fetching;
+          _loading.value = state.authStatus == AuthStatus.loggingIn;
 
           // Checking for errors
           if (state.error != null) {
             state.error!.showSnackBar(context);
           }
           // Handle authenticated states
-          if (state.status == UserStatus.authenticated) {
-            if (state.emailVerified) {
-              if (state.userDetail!.isAdmin) {
+          if (state.userInfo != null) {
+            if (state.emailStatus == EmailStatus.verified) {
+              if (state.userInfo!.isAdmin) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                   RouteMapper.adminHomeScreen,
                   (_) => false,
@@ -213,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
       _formKey.currentState!.save();
       FocusScope.of(context).unfocus();
       context
-          .read<UserBloc>()
+          .read<AuthBloc>()
           .add(LoginUser(email: _email, password: _password));
     }
   }
