@@ -207,9 +207,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       FocusScope.of(context).unfocus();
-      context
-          .read<AccountBloc>()
-          .add(CreateAccount(name: _name, email: _email, password: _password));
+      context.read<AccountBloc>().add(
+            CreateAccount(name: _name, email: _email, password: _password),
+          );
     }
   }
 }
