@@ -51,11 +51,16 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         name: event.name,
       );
       if (result.isLeft) {
-        emit(state.copyWith(error: result.left));
+        emit(
+          const AccountState.initial().copyWith(error: result.left),
+        );
       } else {
-        emit(const AccountState.initial());
         _authBloc.add(
             AddUser(user: result.right, emailStatus: EmailStatus.notVerified));
+        emit(
+          const AccountState.initial()
+              .copyWith(status: AccountStatus.accountCreated),
+        );
       }
     } catch (e) {
       log("er: [_createAccount][account_bloc.dart] $e");

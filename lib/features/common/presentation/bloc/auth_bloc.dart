@@ -53,11 +53,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // Checking if user is authenticated or not
       if (!await _userRepo.userAuthenticated()) return;
 
-      // Checking if user email is verified or not
-      final emailStatus = await _userRepo.checkEmailVerified()
-          ? EmailStatus.verified
-          : EmailStatus.notVerified;
-
       final uid = _firebaseAuth.currentUser!.uid;
       // Attempt to retrieve user details from cache first
       final cacheUser = await _userRepo.getUserDetail(
@@ -69,12 +64,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(
           state.copyWith(
             userInfo: cacheUser.right,
-            emailStatus: emailStatus,
             error: null,
             authStatus: AuthStatus.idle,
           ),
         );
       }
+
+      // Checking if user email is verified or not
+      final emailStatus = await _userRepo.checkEmailVerified()
+          ? EmailStatus.verified
+          : EmailStatus.notVerified;
       // Attempt to retrieve user details from remote
       final remoteUser = await _userRepo.getUserDetail(
         uid: uid,

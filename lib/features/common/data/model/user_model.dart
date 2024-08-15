@@ -57,7 +57,9 @@ class UserModel {
 
   factory UserModel.fromFirebase(DataSnapshot userData, String uid) {
     final userInfo = userData.child("user_info");
-    final favourites = userData.child("favourites").value as List<dynamic>;
+    final favourites = userData.child("favourites").exists
+        ? userData.child("favourites").value as List<dynamic>
+        : [];
     List<Address> addresses = [];
     // Getting address details
     for (final address in userData.child("address").children) {

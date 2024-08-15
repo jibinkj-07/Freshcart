@@ -3,6 +3,7 @@ part of 'account_bloc.dart';
 enum AccountStatus {
   idle,
   creatingAccount,
+  accountCreated,
   sendingVerificationMail,
   sendingResetInstruction,
   resetInstructionSent,

@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:714966431579:android:a15283fe17258f4f58cc7e',
     messagingSenderId: '714966431579',
     projectId: 'freshcart-8696d',
+    databaseURL: 'https://freshcart-8696d-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'freshcart-8696d.appspot.com',
   );
 
@@ -62,7 +63,9 @@ class DefaultFirebaseOptions {
     appId: '1:714966431579:ios:9ae7cecbb4aa96bd58cc7e',
     messagingSenderId: '714966431579',
     projectId: 'freshcart-8696d',
+    databaseURL: 'https://freshcart-8696d-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'freshcart-8696d.appspot.com',
     iosBundleId: 'com.codedude.freshCart',
   );
+
 }
