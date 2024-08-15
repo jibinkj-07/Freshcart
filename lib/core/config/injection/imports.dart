@@ -20,3 +20,4 @@ export '../../../features/common/data/model/user_model.dart';
 export '../../../features/common/data/repo/user_repo_impl.dart';
 export '../../../features/common/domain/repo/user_repo.dart';
 export '../../../features/common/presentation/bloc/auth_bloc.dart';
+export '../../../features/common/presentation/bloc/account_bloc.dart';

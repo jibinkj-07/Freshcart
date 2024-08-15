@@ -30,12 +30,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           case SignOut():
             await _signOut(event, emit);
             break;
+          case AddUser():
+            _addUser(event, emit);
+            break;
         }
       },
     );
   }
 
   // Events
+  void _addUser(AddUser event, Emitter<AuthState> emit) {
+    emit(
+      const AuthState.initial().copyWith(
+        userInfo: event.user,
+        emailStatus: event.emailStatus,
+      ),
+    );
+  }
+
   Future<void> _initUser(InitUser event, Emitter<AuthState> emit) async {
     try {
       // Checking if user is authenticated or not
@@ -98,10 +110,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
       if (result.isLeft) {
-        emit(state.copyWith(
-          error: result.left,
-          authStatus: AuthStatus.idle,
-        ));
+        emit(AuthState.error(result.left));
       } else {
         // Checking if user email is verified or not
         final emailStatus = await _userRepo.checkEmailVerified()

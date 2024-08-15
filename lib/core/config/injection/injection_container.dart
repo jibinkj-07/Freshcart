@@ -37,4 +37,5 @@ Future<void> initDependencies() async {
   sl.registerSingleton<ThemeBloc>(ThemeBloc(sl()));
   sl.registerSingleton<OnboardBloc>(OnboardBloc(sl()));
   sl.registerSingleton<AuthBloc>(AuthBloc(sl(), sl()));
+  sl.registerSingleton<AccountBloc>(AccountBloc(sl(), sl()));
 }

@@ -4,6 +4,19 @@ sealed class AuthEvent extends Equatable {
   const AuthEvent();
 }
 
+class AddUser extends AuthEvent {
+  final UserModel user;
+  final EmailStatus emailStatus;
+
+  const AddUser({
+    required this.user,
+    required this.emailStatus,
+  });
+
+  @override
+  List<Object?> get props => [user];
+}
+
 class InitUser extends AuthEvent {
   @override
   List<Object?> get props => [];

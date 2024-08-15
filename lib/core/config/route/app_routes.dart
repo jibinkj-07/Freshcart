@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../features/user/account/presentation/view/account/create_account_screen.dart';
-import '../../../features/user/account/presentation/view/account/email_verification_screen.dart';
-import '../../../features/user/account/presentation/view/account/login_screen.dart';
-import '../../../features/user/account/presentation/view/account/reset_password_screen.dart';
+
+import '../../../features/user/account/presentation/view/auth/create_account_screen.dart';
+import '../../../features/user/account/presentation/view/auth/email_verification_screen.dart';
+import '../../../features/user/account/presentation/view/auth/login_screen.dart';
+import '../../../features/user/account/presentation/view/auth/reset_password_screen.dart';
 import '../../../features/user/account/presentation/view/help_center/bug_report_screen.dart';
 import '../../../features/user/account/presentation/view/help_center/feedback_screen.dart';
 import '../../../features/admin/home/presentation/view/admin_home_screen.dart';

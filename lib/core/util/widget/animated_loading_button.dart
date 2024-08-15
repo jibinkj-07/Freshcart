@@ -30,7 +30,7 @@ class AnimatedLoadingButton extends StatelessWidget {
         ),
       ),
       child: AnimatedSwitcher(
-        duration: duration ?? const Duration(milliseconds: 300),
+        duration: duration ?? const Duration(milliseconds: 400),
         transitionBuilder: (Widget child, Animation<double> animation) {
           return ScaleTransition(scale: animation, child: child);
         },
