@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../../core/util/widget/custom_snackbar.dart';
 import '../../../../../../core/util/widget/custom_text_field.dart';
+import '../../../../../common/presentation/bloc/user_bloc.dart';
 import '../../view_model/account_helper.dart';
+import '../../widget/account_widget_helper.dart';
 
 /// @author : Jibin K John
 /// @date   : 14/08/2024
@@ -47,7 +50,7 @@ class _BugReportScreenState extends State<BugReportScreen> {
         padding: const EdgeInsets.all(15.0),
         children: [
           Text(AccountHelper.bugReportTitle),
-          AccountHelper.spacer(),
+          AccountWidgetHelper.spacer(),
           Form(
             key: _formKey,
             child: CustomTextField(
@@ -67,7 +70,7 @@ class _BugReportScreenState extends State<BugReportScreen> {
               },
             ),
           ),
-          AccountHelper.spacer(),
+          AccountWidgetHelper.spacer(),
           ValueListenableBuilder(
             valueListenable: _loading,
             builder: (ctx, loading, _) {
@@ -86,7 +89,7 @@ class _BugReportScreenState extends State<BugReportScreen> {
               );
             },
           ),
-          AccountHelper.spacer(),
+          AccountWidgetHelper.spacer(),
           ValueListenableBuilder(
             valueListenable: _image,
             builder: (ctx, image, child) {
@@ -128,8 +131,9 @@ class _BugReportScreenState extends State<BugReportScreen> {
     if (_formKey.currentState!.validate()) {
       _loading.value = true;
       FocusScope.of(context).unfocus();
+      final userBloc = context.read<UserBloc>();
       AccountHelper.reportBug(
-        userId: "123",
+        userId: userBloc.state.userDetail?.uid??"unknown_user",
         bug: _bug.text,
         image: _image.value,
       ).then((value) {

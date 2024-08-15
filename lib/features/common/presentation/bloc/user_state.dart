@@ -6,13 +6,15 @@ class UserState extends Equatable {
   final UserStatus status;
   final UserModel? userDetail;
   final bool emailVerified;
-  final String? error;
+  final Failure? error;
+  final bool fetching;
 
   const UserState._({
     this.status = UserStatus.fetching,
     this.emailVerified = false,
     this.userDetail,
     this.error,
+    this.fetching = false,
   });
 
   const UserState.fetching() : this._();
@@ -22,17 +24,19 @@ class UserState extends Equatable {
   const UserState.unAuthenticated()
       : this._(status: UserStatus.unauthenticated);
 
-  const UserState.error(String message) : this._(error: message);
-
   UserState copyWith({
     UserStatus? status,
     UserModel? userDetail,
     bool? emailVerified,
+    Failure? error,
+    bool? fetching,
   }) {
     return UserState._(
       status: status ?? this.status,
       userDetail: userDetail ?? this.userDetail,
       emailVerified: emailVerified ?? this.emailVerified,
+      error: error,
+      fetching: fetching ?? this.fetching,
     );
   }
 
@@ -45,5 +49,7 @@ class UserState extends Equatable {
         status,
         userDetail,
         emailVerified,
+        error,
+        fetching,
       ];
 }

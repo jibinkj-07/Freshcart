@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/config/route/route_mapper.dart';
+import '../../../../../../core/config/route/route_mapper.dart';
 
 /// @author : Jibin K John
 /// @date   : 14/08/2024
@@ -18,7 +18,6 @@ class BugReportTile extends StatelessWidget {
         color: Theme.of(context).primaryColor,
       ),
       title: const Text("Bug Report"),
-      // subtitle: const Text("App language preference"),
       trailing: const Icon(
         Icons.arrow_forward_ios_rounded,
         color: Colors.grey,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/util/widget/custom_snackbar.dart';
+import '../../../../../../core/util/widget/custom_snackbar.dart';
 
 /// @author : Jibin K John
 /// @date   : 14/08/2024

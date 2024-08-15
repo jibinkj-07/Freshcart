@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:either_dart/either.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 import '../../../../../core/config/firebase/path_mapper.dart';
@@ -44,7 +43,6 @@ sealed class AccountHelper {
       "provide the best user experience. Please take a moment to share your thoughts,"
       " ideas, and concerns with us";
 
-  static Widget spacer({double? height}) => SizedBox(height: height ?? 15.0);
 
   static Future<Either<Failure, bool>> reportBug({
     required String userId,

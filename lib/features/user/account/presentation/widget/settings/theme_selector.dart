@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../theme/presentation/bloc/theme_bloc.dart';
+import '../../../../../theme/presentation/bloc/theme_bloc.dart';
 
 /// @author : Jibin K John
 /// @date   : 09/08/2024

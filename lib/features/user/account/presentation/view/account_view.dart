@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import '../widget/bug_report_tile.dart';
-import '../widget/faq_tile.dart';
-import '../widget/feedback_tile.dart';
-import '../widget/lang_selector.dart';
-import '../widget/theme_selector.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../common/presentation/bloc/user_bloc.dart';
+import '../widget/account/account_info.dart';
+import '../widget/account/login_section.dart';
+import '../widget/help_center/bug_report_tile.dart';
+import '../widget/help_center/faq_tile.dart';
+import '../widget/help_center/feedback_tile.dart';
+import '../widget/settings/lang_selector.dart';
+import '../widget/settings/theme_selector.dart';
 
 /// @author : Jibin K John
 /// @date   : 08/08/2024
@@ -14,18 +18,24 @@ class AccountView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        _title("   App Settings"),
-        const ThemeSelector(),
-        const LangSelector(),
-        _title("   Help Center"),
-        const FAQTile(),
-        const BugReportTile(),
-        const FeedbackTile(),
-
-      ],
-    );
+    return BlocBuilder<UserBloc, UserState>(builder: (ctx, userState) {
+      return ListView(
+        children: [
+          if (userState.userDetail == null) LoginSection() else AccountInfo(),
+          _title("   App Settings"),
+          const ThemeSelector(),
+          const LangSelector(),
+          _title("   Help Center"),
+          const FAQTile(),
+          // Showing bug and feedback section only
+          // if user is authenticated
+          if (userState.userDetail != null) ...[
+            const BugReportTile(),
+            const FeedbackTile(),
+          ],
+        ],
+      );
+    });
   }
 
   Widget _title(String title) => Padding(

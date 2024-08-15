@@ -8,4 +8,10 @@ sealed class AssetMapper {
   static const String emptyBoxLottie = "assets/animation/empty-box.json";
   static const String loadingLottie = "assets/animation/loading.json";
   static const String loadingDarkLottie = "assets/animation/loading-dark.json";
+
+  /// ---------------------- IMAGE FILES -------------------------
+  static const String appIconImage = "assets/image/app-icon.png";
+
+  /// ---------------------- SVG FILES -------------------------
+  static const String googleSVG = "assets/svg/google.svg";
 }

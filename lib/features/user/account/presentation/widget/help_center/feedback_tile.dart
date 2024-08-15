@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/config/route/route_mapper.dart';
+import '../../../../../../core/config/route/route_mapper.dart';
 
 /// @author : Jibin K John
 /// @date   : 15/08/2024

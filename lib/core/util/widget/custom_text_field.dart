@@ -59,7 +59,15 @@ class CustomTextField extends StatelessWidget {
       initialValue: initialValue,
       decoration: InputDecoration(
         prefixIcon: icon,
-        suffix: suffixIcon,
+        prefixIconColor: WidgetStateColor.resolveWith(
+          (Set<WidgetState> states) {
+            if (states.contains(WidgetState.focused)) {
+              return ConfigHelper.appColor;
+            }
+            return Colors.grey;
+          },
+        ),
+        suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle: const TextStyle(
           color: Colors.grey,
