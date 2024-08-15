@@ -101,7 +101,9 @@ sealed class AccountHelper {
       return const Right(true);
     } catch (e) {
       log("er:[submitFeedback][account_helper.dart] $e");
-      return Left(Failure(message: 'Something went wrong. Try again'));
+      return Left(
+        Failure(message: 'Something went wrong. Try again'),
+      );
     }
   }
 }
