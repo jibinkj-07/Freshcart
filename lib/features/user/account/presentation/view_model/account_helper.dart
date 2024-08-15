@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:either_dart/either.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 import '../../../../../core/config/firebase/path_mapper.dart';
@@ -34,7 +35,16 @@ sealed class AccountHelper {
   };
 
   static String bugReportTitle =
-      "If you came across a bug or issue in this app, please report it to our support team with as much detail as possible. This helps us understand and address the problem effectively.";
+      "If you came across a bug or issue in this app, please report it"
+      " to our support team with as much detail as possible. This helps us"
+      " understand and address the problem effectively.";
+
+  static String feedbackTitle =
+      "Your feedback is essential as we work to improve our app and "
+      "provide the best user experience. Please take a moment to share your thoughts,"
+      " ideas, and concerns with us";
+
+  static Widget spacer({double? height}) => SizedBox(height: height ?? 15.0);
 
   static Future<Either<Failure, bool>> reportBug({
     required String userId,
@@ -70,6 +80,32 @@ sealed class AccountHelper {
       return const Right(true);
     } catch (e) {
       log("er:[reportBug][account_helper.dart] $e");
+      return Left(Failure(message: 'Something went wrong. Try again'));
+    }
+  }
+
+  static Future<Either<Failure, bool>> submitFeedback({
+    required String userId,
+    required String feedback,
+  }) async {
+    if (!await InternetConnection().hasInternetAccess) {
+      return Left(Failure(message: "Check your network connection"));
+    }
+    try {
+      final time = DateTime.now();
+
+      await FirebaseDatabase.instance
+          .ref(PathMapper.feedbackPath(userId))
+          .child('${time.millisecondsSinceEpoch}')
+          .set(
+        {
+          'time': time.millisecondsSinceEpoch,
+          'feedback': feedback,
+        },
+      );
+      return const Right(true);
+    } catch (e) {
+      log("er:[submitFeedback][account_helper.dart] $e");
       return Left(Failure(message: 'Something went wrong. Try again'));
     }
   }

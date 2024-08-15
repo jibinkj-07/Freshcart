@@ -3,21 +3,22 @@ import 'package:flutter/material.dart';
 import '../../../../../core/config/route/route_mapper.dart';
 
 /// @author : Jibin K John
-/// @date   : 14/08/2024
-/// @time   : 15:35:08
+/// @date   : 15/08/2024
+/// @time   : 11:19:52
 
-class BugReport extends StatelessWidget {
-  const BugReport({super.key});
+
+class FeedbackTile extends StatelessWidget {
+const FeedbackTile({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => Navigator.of(context).pushNamed(RouteMapper.bugReportScreen),
+      onTap: () => Navigator.of(context).pushNamed(RouteMapper.feedbackScreen),
       leading: Icon(
-        Icons.bug_report_rounded,
+        Icons.rate_review_outlined,
         color: Theme.of(context).primaryColor,
       ),
-      title: const Text("Bug Report"),
+      title: const Text("Feedback"),
       // subtitle: const Text("App language preference"),
       trailing: const Icon(
         Icons.arrow_forward_ios_rounded,
@@ -27,3 +28,4 @@ class BugReport extends StatelessWidget {
     );
   }
 }
+

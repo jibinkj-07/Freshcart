@@ -8,4 +8,5 @@ sealed class PathMapper {
   static String userInfoPath(String uid) => "$_userRoot/$uid/user_info";
 
   static String reportPath(String uid) => "$_reportRoot/bug/$uid";
+  static String feedbackPath(String uid) => "$_reportRoot/feedback/$uid";
 }

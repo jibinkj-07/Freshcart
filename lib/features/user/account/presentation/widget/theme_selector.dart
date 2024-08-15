@@ -25,7 +25,7 @@ class _ThemeSelectorState extends State<ThemeSelector> {
     return ListTile(
       onTap: () => _showThemeSheet(context),
       leading: Icon(
-        Icons.sunny,
+        Icons.wb_sunny_outlined,
         color: Theme.of(context).primaryColor,
       ),
       title: const Text("Theme"),

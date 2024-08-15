@@ -47,7 +47,7 @@ class _BugReportScreenState extends State<BugReportScreen> {
         padding: const EdgeInsets.all(15.0),
         children: [
           Text(AccountHelper.bugReportTitle),
-          _spacer(),
+          AccountHelper.spacer(),
           Form(
             key: _formKey,
             child: CustomTextField(
@@ -67,7 +67,7 @@ class _BugReportScreenState extends State<BugReportScreen> {
               },
             ),
           ),
-          _spacer(),
+          AccountHelper.spacer(),
           ValueListenableBuilder(
             valueListenable: _loading,
             builder: (ctx, loading, _) {
@@ -86,7 +86,7 @@ class _BugReportScreenState extends State<BugReportScreen> {
               );
             },
           ),
-          _spacer(),
+          AccountHelper.spacer(),
           ValueListenableBuilder(
             valueListenable: _image,
             builder: (ctx, image, child) {
@@ -156,6 +156,4 @@ class _BugReportScreenState extends State<BugReportScreen> {
     if (image == null) return;
     _image.value = File(image.path);
   }
-
-  Widget _spacer({double? height}) => SizedBox(height: height ?? 15.0);
 }

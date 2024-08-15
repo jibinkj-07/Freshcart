@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widget/bug_report.dart';
-import '../widget/faq.dart';
+import '../widget/bug_report_tile.dart';
+import '../widget/faq_tile.dart';
+import '../widget/feedback_tile.dart';
 import '../widget/lang_selector.dart';
 import '../widget/theme_selector.dart';
 
@@ -19,8 +20,9 @@ class AccountView extends StatelessWidget {
         const ThemeSelector(),
         const LangSelector(),
         _title("   Help Center"),
-        const FAQ(),
-        const BugReport(),
+        const FAQTile(),
+        const BugReportTile(),
+        const FeedbackTile(),
 
       ],
     );
