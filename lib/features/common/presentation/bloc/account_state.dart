@@ -5,6 +5,7 @@ enum AccountStatus {
   creatingAccount,
   accountCreated,
   sendingVerificationMail,
+  emailVerified,
   sendingResetInstruction,
   resetInstructionSent,
 }
@@ -13,17 +14,17 @@ class AccountState extends Equatable {
   final AccountStatus status;
   final Failure? error;
 
-  const AccountState._({
+  const AccountState({
     this.status = AccountStatus.idle,
     this.error,
   });
 
-  const AccountState.initial() : this._();
+  const AccountState.initial() : this();
 
-  const AccountState.error(Failure message) : this._(error: message);
+  const AccountState.error(Failure message) : this(error: message);
 
   AccountState copyWith({AccountStatus? status, Failure? error}) =>
-      AccountState._(
+      AccountState(
         status: status ?? this.status,
         error: error ?? this.error,
       );

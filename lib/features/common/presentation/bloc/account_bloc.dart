@@ -29,6 +29,9 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
           case ResetPassword():
             await _resetPassword(event, emit);
             break;
+          case CheckEmailVerification():
+            await _checkEmailVerification(event, emit);
+            break;
         }
       },
     );
@@ -39,11 +42,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     CreateAccount event,
     Emitter<AccountState> emit,
   ) async {
-    emit(
-      const AccountState.initial().copyWith(
-        status: AccountStatus.creatingAccount,
-      ),
-    );
+    emit(const AccountState(status: AccountStatus.creatingAccount));
     try {
       final result = await _userRepo.createAccount(
         email: event.email,
@@ -51,16 +50,11 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         name: event.name,
       );
       if (result.isLeft) {
-        emit(
-          const AccountState.initial().copyWith(error: result.left),
-        );
+        emit(AccountState.error(result.left));
       } else {
         _authBloc.add(
             AddUser(user: result.right, emailStatus: EmailStatus.notVerified));
-        emit(
-          const AccountState.initial()
-              .copyWith(status: AccountStatus.accountCreated),
-        );
+        emit(const AccountState(status: AccountStatus.accountCreated));
       }
     } catch (e) {
       log("er: [_createAccount][account_bloc.dart] $e");
@@ -76,9 +70,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     SendVerificationMail event,
     Emitter<AccountState> emit,
   ) async {
-    emit(const AccountState.initial().copyWith(
-      status: AccountStatus.sendingVerificationMail,
-    ));
+    emit(const AccountState(status: AccountStatus.sendingVerificationMail));
     try {
       final result = await _userRepo.sendVerificationMail();
       if (result.isLeft) {
@@ -94,13 +86,33 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     }
   }
 
+  Future<void> _checkEmailVerification(
+    CheckEmailVerification event,
+    Emitter<AccountState> emit,
+  ) async {
+    try {
+      final result = await _userRepo.checkEmailVerified();
+      if (result) {
+        _authBloc.add(
+          const UpdateEmailStatus(emailStatus: EmailStatus.verified),
+        );
+        emit(const AccountState(status: AccountStatus.emailVerified));
+      }
+    } catch (e) {
+      log("er: [_checkEmailVerification][account_bloc.dart] $e");
+      emit(
+        AccountState.error(
+          Failure(message: "An unexpected error occurred"),
+        ),
+      );
+    }
+  }
+
   Future<void> _resetPassword(
     ResetPassword event,
     Emitter<AccountState> emit,
   ) async {
-    emit(const AccountState.initial().copyWith(
-      status: AccountStatus.sendingResetInstruction,
-    ));
+    emit(const AccountState(status: AccountStatus.sendingResetInstruction));
     try {
       final result = await _userRepo.resetPassword(email: event.email);
       if (result.isLeft) {

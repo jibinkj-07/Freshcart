@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../../../core/config/route/route_args_helper.dart';
 import '../../../../../../core/config/route/route_mapper.dart';
 import '../../../../../../core/util/helper/asset_mapper.dart';
 import '../../../../../../core/util/mixin/validation_mixin.dart';
@@ -49,8 +50,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
 
           // Routing user to email verification screen
           if (state.status == AccountStatus.accountCreated) {
-            Navigator.of(context).pushReplacementNamed(
+            Navigator.pushReplacementNamed(
+              context,
               RouteMapper.emailVerificationScreen,
+              arguments: EmailVerificationArgument(
+                email: _email,
+                fromProfile: false,
+              ),
             );
           }
 
@@ -201,6 +207,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
       ),
     );
   }
+
   // Login Function
   void _loginUser() {
     if (_formKey.currentState!.validate()) {

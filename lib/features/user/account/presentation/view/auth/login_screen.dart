@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../../../../core/config/route/route_args_helper.dart';
 import '../../../../../../core/config/route/route_mapper.dart';
 import '../../../../../../core/util/helper/asset_mapper.dart';
 import '../../../../../../core/util/mixin/validation_mixin.dart';
@@ -64,6 +65,10 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
               Navigator.pushReplacementNamed(
                 context,
                 RouteMapper.emailVerificationScreen,
+                arguments: EmailVerificationArgument(
+                  email: state.userInfo!.email,
+                  fromProfile: false,
+                ),
               );
             }
           }

@@ -61,6 +61,7 @@ class UserFbDataSourceImpl implements UserFbDataSource {
         email: email,
         password: password,
       );
+      await userCredential.user!.updateDisplayName(name);
       final uid = userCredential.user?.uid ?? "unknownUser";
       final user = UserModel(
         uid: uid,

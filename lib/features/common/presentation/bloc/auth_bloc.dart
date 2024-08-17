@@ -33,6 +33,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           case AddUser():
             _addUser(event, emit);
             break;
+          case UpdateEmailStatus():
+            _updateEmailStatus(event, emit);
+            break;
         }
       },
     );
@@ -133,6 +136,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
     }
+  }
+
+  void _updateEmailStatus(UpdateEmailStatus event, Emitter<AuthState> emit) {
+    emit(state.copyWith(emailStatus: event.emailStatus));
   }
 
   Future<void> _signOut(SignOut event, Emitter<AuthState> emit) async {

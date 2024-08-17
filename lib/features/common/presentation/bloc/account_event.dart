@@ -24,6 +24,11 @@ class SendVerificationMail extends AccountEvent {
   List<Object?> get props => [];
 }
 
+class CheckEmailVerification extends AccountEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class ResetPassword extends AccountEvent {
   final String email;
 

@@ -45,8 +45,13 @@ sealed class AppRoutes {
       case RouteMapper.createAccountScreen:
         return MaterialPageRoute(builder: (_) => const CreateAccountScreen());
       case RouteMapper.emailVerificationScreen:
+        final argsObject = args as EmailVerificationArgument?;
         return MaterialPageRoute(
-            builder: (_) => const EmailVerificationScreen());
+          builder: (_) => EmailVerificationScreen(
+            email: argsObject?.email ?? '',
+            fromProfile: argsObject?.fromProfile ?? false,
+          ),
+        );
       case RouteMapper.resetPasswordScreen:
         return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
       case RouteMapper.imagePreviewScreen:

@@ -52,7 +52,7 @@ class AccountInfo extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         AccountWidgetHelper.spacer(height: 25.0),
-        ProfileSection(emailStatus: emailStatus),
+        ProfileSection(emailStatus: emailStatus, email: userInfo.email),
       ],
     );
   }

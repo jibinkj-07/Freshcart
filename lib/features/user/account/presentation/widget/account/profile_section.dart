@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/config/route/route_args_helper.dart';
 import '../../../../../../core/config/route/route_mapper.dart';
 import '../../../../../common/presentation/bloc/auth_bloc.dart';
 
@@ -8,11 +9,13 @@ import '../../../../../common/presentation/bloc/auth_bloc.dart';
 /// @time   : 12:58:07
 
 class ProfileSection extends StatelessWidget {
+  final String email;
   final EmailStatus emailStatus;
 
   const ProfileSection({
     super.key,
     required this.emailStatus,
+    required this.email,
   });
 
   @override
@@ -22,8 +25,11 @@ class ProfileSection extends StatelessWidget {
         // verify email tile
         if (emailStatus == EmailStatus.notVerified)
           ListTile(
-            onTap: () =>
-                Navigator.of(context).pushNamed(RouteMapper.userFaqScreen),
+            onTap: () => Navigator.of(context).pushNamed(
+              RouteMapper.emailVerificationScreen,
+              arguments:
+                  EmailVerificationArgument(email: email, fromProfile: true),
+            ),
             leading: Icon(
               Icons.verified_outlined,
               color: Theme.of(context).primaryColor,
@@ -74,7 +80,7 @@ class ProfileSection extends StatelessWidget {
             Icons.favorite_outline_rounded,
             color: Theme.of(context).primaryColor,
           ),
-          title: const Text("Favorites Bucket"),
+          title: const Text("Favorite Bucket"),
           trailing: const Icon(
             Icons.arrow_forward_ios_rounded,
             color: Colors.grey,

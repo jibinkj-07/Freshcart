@@ -17,6 +17,17 @@ class AddUser extends AuthEvent {
   List<Object?> get props => [user];
 }
 
+class UpdateEmailStatus extends AuthEvent {
+  final EmailStatus emailStatus;
+
+  const UpdateEmailStatus({
+    required this.emailStatus,
+  });
+
+  @override
+  List<Object?> get props => [emailStatus];
+}
+
 class InitUser extends AuthEvent {
   @override
   List<Object?> get props => [];

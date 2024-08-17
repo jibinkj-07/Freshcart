@@ -9,3 +9,13 @@ class ImagePreviewArgument {
     this.tag,
   });
 }
+
+class EmailVerificationArgument {
+  final String email;
+  final bool fromProfile;
+
+  EmailVerificationArgument({
+    required this.email,
+    required this.fromProfile,
+  });
+}
