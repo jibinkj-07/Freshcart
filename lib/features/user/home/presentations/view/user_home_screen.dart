@@ -39,7 +39,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       valueListenable: _index,
       builder: (ctx, index, _) {
         return PopScope(
-          onPopInvoked: (_) => _index.value = 0,
+          onPopInvokedWithResult: (_, __) => _index.value = 0,
           canPop: index == 0,
           child: Scaffold(
             appBar: UserTopBar(selectedIndex: index),
