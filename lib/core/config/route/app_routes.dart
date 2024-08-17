@@ -11,8 +11,10 @@ import '../../../features/onboard/presentation/view/onboard_screen.dart';
 import '../../../features/user/account/presentation/view/help_center/faq_screen.dart';
 import '../../../features/user/home/presentations/view/user_home_screen.dart';
 import '../../../root.dart';
+import '../../util/widget/image_preview.dart';
 import '../../util/widget/loading.dart';
 import 'error_route.dart';
+import 'route_args_helper.dart';
 import 'route_mapper.dart';
 
 sealed class AppRoutes {
@@ -47,6 +49,15 @@ sealed class AppRoutes {
             builder: (_) => const EmailVerificationScreen());
       case RouteMapper.resetPasswordScreen:
         return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
+      case RouteMapper.imagePreviewScreen:
+        final argsObject = args as ImagePreviewArgument?;
+        return MaterialPageRoute(
+          builder: (_) => ImagePreview(
+            title: argsObject?.title ?? "",
+            url: argsObject?.url ?? "",
+            tag: argsObject?.tag,
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (_) => const ErrorRoute());
     }

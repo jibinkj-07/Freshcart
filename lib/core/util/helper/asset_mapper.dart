@@ -11,6 +11,7 @@ sealed class AssetMapper {
 
   /// ---------------------- IMAGE FILES -------------------------
   static const String appIconImage = "assets/image/app-icon.png";
+  static const String profileImage = "assets/image/profile.jpg";
 
   /// ---------------------- SVG FILES -------------------------
   static const String googleSVG = "assets/svg/google.svg";

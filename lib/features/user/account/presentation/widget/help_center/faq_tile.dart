@@ -18,7 +18,6 @@ class FAQTile extends StatelessWidget {
         color: Theme.of(context).primaryColor,
       ),
       title: const Text("FAQ"),
-      // subtitle: const Text("App language preference"),
       trailing: const Icon(
         Icons.arrow_forward_ios_rounded,
         color: Colors.grey,
