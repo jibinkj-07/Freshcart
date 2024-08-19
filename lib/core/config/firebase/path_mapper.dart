@@ -7,6 +7,13 @@ sealed class PathMapper {
 
   static String userInfoPath(String uid) => "$_userRoot/$uid/user_info";
 
+  static String categoryPath = "$_inventoryRoot/category";
+  static String productPath = "$_inventoryRoot/product";
+
+  static String commentPath(String productId) =>
+      "$_inventoryRoot/product/$productId/comments";
+
   static String reportPath(String uid) => "$_reportRoot/bug/$uid";
+
   static String feedbackPath(String uid) => "$_reportRoot/feedback/$uid";
 }
