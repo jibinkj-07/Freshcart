@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widget/inventory_dashboard.dart';
+import '../widget/sales_graph.dart';
 import '../widget/shop_status.dart';
 
 /// @author : Jibin K John
@@ -22,6 +23,8 @@ class HomeView extends StatelessWidget {
         Text("Dashboard"),
         InventoryDashboard(),
         // Sales graph
+        Text("Sales Graph"),
+        SalesGraph(),
       ],
     );
   }

@@ -11,6 +11,7 @@ class InventoryDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15.0),
+      margin: const EdgeInsets.only(top: 5.0,bottom: 20.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(25.0),
