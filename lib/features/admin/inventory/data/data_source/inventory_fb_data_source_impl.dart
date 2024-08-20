@@ -23,7 +23,7 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
     try {
       await _firebaseDatabase
           .ref(PathMapper.categoryPath)
-          .set(category.toFirebaseJson());
+          .update(category.toFirebaseJson());
       return const Right(true);
     } catch (e) {
       log("er: [addCategory][inventory_fb_data_source_impl.dart] $e");
@@ -39,7 +39,7 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
     try {
       await _firebaseDatabase
           .ref(PathMapper.commentPath(productId))
-          .set(comment.toFirebaseJson());
+          .update(comment.toFirebaseJson());
       return const Right(true);
     } catch (e) {
       log("er: [addComment][inventory_fb_data_source_impl.dart] $e");
@@ -53,7 +53,7 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
     try {
       await _firebaseDatabase
           .ref(PathMapper.productPath)
-          .set(product.toFirebaseJson());
+          .update(product.toFirebaseJson());
       return const Right(true);
     } catch (e) {
       log("er: [addProduct][inventory_fb_data_source_impl.dart] $e");

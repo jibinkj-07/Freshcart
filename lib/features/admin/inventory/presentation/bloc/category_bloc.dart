@@ -35,18 +35,33 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     Emitter<CategoryState> emit,
   ) async {
     try {
-      emit(state.copyWith(status: CategoryStatus.adding, error: null));
-      final result = await _inventoryRepo.addCategory(category: event.category);
-      if (result.isLeft) {
-        emit(state.copyWith(status: CategoryStatus.idle, error: result.left));
+      // Checking whether already have or not
+      final isExist = state.category.indexWhere(
+        (item) => item.title == event.category.title,
+      );
+
+      if (isExist < 0) {
+        emit(state.copyWith(status: CategoryStatus.adding, error: null));
+        final result =
+            await _inventoryRepo.addCategory(category: event.category);
+        if (result.isLeft) {
+          emit(state.copyWith(status: CategoryStatus.idle, error: result.left));
+        } else {
+          final updatedList = List<CategoryModel>.from(state.category)
+            ..add(event.category);
+          emit(
+            state.copyWith(
+              status: CategoryStatus.added,
+              category: updatedList,
+              error: null,
+            ),
+          );
+        }
       } else {
-        final updatedList = List<CategoryModel>.from(state.category)
-          ..add(event.category);
         emit(
           state.copyWith(
-            status: CategoryStatus.added,
-            category: updatedList,
-            error: null,
+            status: CategoryStatus.idle,
+            error: Failure(message: "Category already exist"),
           ),
         );
       }
@@ -96,7 +111,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     Emitter<CategoryState> emit,
   ) async {
     try {
-      emit(const CategoryState.initial().copyWith(status: CategoryStatus.loading));
+      emit(const CategoryState.initial()
+          .copyWith(status: CategoryStatus.loading));
       final result = await _inventoryRepo.getAllCategory();
       if (result.isLeft) {
         emit(const CategoryState.initial().copyWith(error: result.left));

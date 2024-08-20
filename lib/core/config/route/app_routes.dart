@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../features/admin/inventory/presentation/view/add_category_screen.dart';
 import '../../../features/user/account/presentation/view/auth/create_account_screen.dart';
 import '../../../features/user/account/presentation/view/auth/email_verification_screen.dart';
 import '../../../features/user/account/presentation/view/auth/login_screen.dart';
@@ -63,6 +64,8 @@ sealed class AppRoutes {
             tag: argsObject?.tag,
           ),
         );
+      case RouteMapper.addCategoryScreen:
+        return MaterialPageRoute(builder: (_) => const AddCategoryScreen());
       default:
         return MaterialPageRoute(builder: (_) => const ErrorRoute());
     }
