@@ -27,3 +27,4 @@ export '../../../features/admin/inventory/data/data_source/inventory_fb_data_sou
 export '../../../features/admin/inventory/data/repo/inventory_repo_impl.dart';
 export '../../../features/admin/inventory/domain/repo/inventory_repo.dart';
 export '../../../features/admin/inventory/presentation/bloc/category_bloc.dart';
+export '../../../features/admin/inventory/presentation/bloc/product_bloc.dart';

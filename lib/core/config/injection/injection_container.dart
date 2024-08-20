@@ -44,4 +44,5 @@ Future<void> initDependencies() async {
   sl.registerSingleton<AuthBloc>(AuthBloc(sl(), sl()));
   sl.registerSingleton<AccountBloc>(AccountBloc(sl(), sl()));
   sl.registerSingleton<CategoryBloc>(CategoryBloc(sl()));
+  sl.registerSingleton<ProductBloc>(ProductBloc(sl()));
 }

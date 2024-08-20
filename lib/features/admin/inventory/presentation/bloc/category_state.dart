@@ -17,11 +17,11 @@ class CategoryState extends Equatable {
 
   const CategoryState({
     this.status = CategoryStatus.idle,
-    required this.category,
+    this.category = const [],
     this.error,
   });
 
-  CategoryState.initial() : this(category: []);
+  const CategoryState.initial() : this();
 
   CategoryState copyWith({
     CategoryStatus? status,
@@ -29,14 +29,11 @@ class CategoryState extends Equatable {
     Failure? error,
   }) =>
       CategoryState(
-          category: category ?? this.category,
-          status: status ?? this.status,
-          error: error ?? this.error);
+        category: category ?? this.category,
+        status: status ?? this.status,
+        error: error ?? this.error,
+      );
 
   @override
-  List<Object?> get props => [
-        status,
-        category,
-        error,
-      ];
+  List<Object?> get props => [status, category, error];
 }

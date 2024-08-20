@@ -13,7 +13,7 @@ part 'category_state.dart';
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final InventoryRepo _inventoryRepo;
 
-  CategoryBloc(this._inventoryRepo) : super(CategoryState.initial()) {
+  CategoryBloc(this._inventoryRepo) : super(const CategoryState.initial()) {
     on<CategoryEvent>((event, emit) async {
       switch (event) {
         case AddCategory():
@@ -96,17 +96,17 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     Emitter<CategoryState> emit,
   ) async {
     try {
-      emit(CategoryState.initial().copyWith(status: CategoryStatus.loading));
+      emit(const CategoryState.initial().copyWith(status: CategoryStatus.loading));
       final result = await _inventoryRepo.getAllCategory();
       if (result.isLeft) {
-        emit(CategoryState.initial().copyWith(error: result.left));
+        emit(const CategoryState.initial().copyWith(error: result.left));
       } else {
-        emit(CategoryState.initial().copyWith(category: result.right));
+        emit(const CategoryState.initial().copyWith(category: result.right));
       }
     } catch (e) {
       log("er: [_getAllCategory][category_bloc.dart] $e");
       emit(
-        CategoryState.initial().copyWith(
+        const CategoryState.initial().copyWith(
           error: Failure(message: "An unexpected failure occurred."),
         ),
       );
