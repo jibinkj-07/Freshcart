@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/single_child_widget.dart';
+import '../../../features/admin/inventory/presentation/bloc/category_bloc.dart';
 import '../../../features/common/presentation/bloc/account_bloc.dart';
 import '../../../features/common/presentation/bloc/auth_bloc.dart';
 import '../../../features/onboard/presentation/bloc/onboard_bloc.dart';
@@ -12,5 +13,6 @@ sealed class BlocProviders {
         BlocProvider<OnboardBloc>(create: (_) => sl<OnboardBloc>()),
         BlocProvider<AuthBloc>(create: (_) => sl<AuthBloc>()),
         BlocProvider<AccountBloc>(create: (_) => sl<AccountBloc>()),
+        BlocProvider<CategoryBloc>(create: (_) => sl<CategoryBloc>()),
       ];
 }

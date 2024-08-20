@@ -133,6 +133,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   @override
   void onEvent(AccountEvent event) {
     super.onEvent(event);
-    log("Event dispatched: $event");
+    log("AccountEvent dispatched: $event");
   }
 }

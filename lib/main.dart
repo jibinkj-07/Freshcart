@@ -10,6 +10,7 @@ import 'core/config/route/app_routes.dart';
 import 'core/config/route/route_mapper.dart';
 import 'core/config/theme/dark.dart';
 import 'core/config/theme/light.dart';
+import 'features/admin/inventory/presentation/bloc/category_bloc.dart';
 import 'features/common/presentation/bloc/auth_bloc.dart';
 import 'features/onboard/presentation/bloc/onboard_bloc.dart';
 import 'features/theme/presentation/bloc/theme_bloc.dart';
@@ -28,6 +29,7 @@ Future<void> main() async {
   sl<OnboardBloc>().add(AppStarted());
   sl<ThemeBloc>().add(GetAppTheme());
   sl<AuthBloc>().add(InitUser());
+  sl<CategoryBloc>().add(GetAllCategory());
 
   // restricting application orientation to portrait only
   SystemChrome.setPreferredOrientations([

@@ -165,6 +165,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   @override
   void onEvent(AuthEvent event) {
     super.onEvent(event);
-    log("Event dispatched: $event");
+    log("AuthEvent dispatched: $event");
   }
 }

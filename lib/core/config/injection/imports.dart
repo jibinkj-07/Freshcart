@@ -21,3 +21,9 @@ export '../../../features/common/data/repo/user_repo_impl.dart';
 export '../../../features/common/domain/repo/user_repo.dart';
 export '../../../features/common/presentation/bloc/auth_bloc.dart';
 export '../../../features/common/presentation/bloc/account_bloc.dart';
+
+export '../../../features/admin/inventory/data/data_source/inventory_fb_data_source.dart';
+export '../../../features/admin/inventory/data/data_source/inventory_fb_data_source_impl.dart';
+export '../../../features/admin/inventory/data/repo/inventory_repo_impl.dart';
+export '../../../features/admin/inventory/domain/repo/inventory_repo.dart';
+export '../../../features/admin/inventory/presentation/bloc/category_bloc.dart';

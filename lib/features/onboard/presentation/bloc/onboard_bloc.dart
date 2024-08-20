@@ -30,6 +30,6 @@ class OnboardBloc extends Bloc<OnboardEvent, OnboardState> {
   @override
   void onEvent(OnboardEvent event) {
     super.onEvent(event);
-    log("Event dispatched: $event");
+    log("OnboardEvent dispatched: $event");
   }
 }

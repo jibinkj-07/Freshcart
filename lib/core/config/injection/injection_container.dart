@@ -1,4 +1,3 @@
-
 import './imports.dart';
 
 final sl = GetIt.instance;
@@ -24,18 +23,25 @@ Future<void> initDependencies() async {
 
   // **************************************** Data Sources ****************************************
   sl.registerLazySingleton<ThemeDataSource>(() => ThemeDataSourceImpl(sl()));
-  sl.registerLazySingleton<OnboardDataSource>(() => OnboardDataSourceImpl(sl()));
-  sl.registerLazySingleton<UserFbDataSource>(() => UserFbDataSourceImpl(sl(), sl(), sl()));
-  sl.registerLazySingleton<UserCacheDataSource>(() => UserCacheDataSourceImpl(sl()));
+  sl.registerLazySingleton<OnboardDataSource>(
+      () => OnboardDataSourceImpl(sl()));
+  sl.registerLazySingleton<UserFbDataSource>(
+      () => UserFbDataSourceImpl(sl(), sl(), sl()));
+  sl.registerLazySingleton<UserCacheDataSource>(
+      () => UserCacheDataSourceImpl(sl()));
+  sl.registerLazySingleton<InventoryFbDataSource>(
+      () => InventoryFbDataSourceImpl(sl(), sl()));
 
   // **************************************** Repos ****************************************
   sl.registerLazySingleton<ThemeRepo>(() => ThemeRepoImpl(sl()));
   sl.registerLazySingleton<OnboardRepo>(() => OnboardRepoImpl(sl()));
   sl.registerLazySingleton<UserRepo>(() => UserRepoImpl(sl(), sl()));
+  sl.registerLazySingleton<InventoryRepo>(() => InventoryRepoImpl(sl()));
 
   // **************************************** Bloc ****************************************
   sl.registerSingleton<ThemeBloc>(ThemeBloc(sl()));
   sl.registerSingleton<OnboardBloc>(OnboardBloc(sl()));
   sl.registerSingleton<AuthBloc>(AuthBloc(sl(), sl()));
   sl.registerSingleton<AccountBloc>(AccountBloc(sl(), sl()));
+  sl.registerSingleton<CategoryBloc>(CategoryBloc(sl()));
 }
