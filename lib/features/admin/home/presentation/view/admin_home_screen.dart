@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/config/route/route_mapper.dart';
 import '../../../inventory/presentation/view/inventory_view.dart';
 import '../../../orders/presentation/view/order_view.dart';
 import '../../../shop/presentation/view/shop_view.dart';
@@ -44,6 +45,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           child: Scaffold(
             appBar: AdminTopBar(selectedIndex: index),
             body: _views[index],
+            floatingActionButton: index == 1
+                ? FloatingActionButton.extended(
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(RouteMapper.addProductScreen),
+                    icon: const Icon(Icons.add_rounded),
+                    label: const Text("Add"),
+                  )
+                : null,
             bottomNavigationBar: NavBar(index: _index, selectedIndex: index),
           ),
         );

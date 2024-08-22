@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:either_dart/either.dart';
 
 import '../../../../../core/util/error/failure.dart';
@@ -9,7 +11,11 @@ abstract class InventoryFbDataSource {
   /// PRODUCTS
   Future<Either<Failure, List<ProductModel>>> getAllProducts();
 
-  Future<Either<Failure, bool>> addProduct({required ProductModel product});
+  Future<Either<Failure, bool>> addProduct({
+    required ProductModel product,
+    required List<File> images,
+    required File featuredImage,
+  });
 
   Future<Either<Failure, bool>> deleteProduct({required String id});
 

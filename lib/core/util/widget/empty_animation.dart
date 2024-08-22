@@ -8,15 +8,24 @@ import '../helper/asset_mapper.dart';
 
 class EmptyAnimation extends StatelessWidget {
   final double? size;
+  final String? message;
 
-  const EmptyAnimation({super.key, this.size});
+  const EmptyAnimation({
+    super.key,
+    this.size,
+    this.message,
+  });
 
   @override
-  Widget build(BuildContext context) => Center(
-        child: Lottie.asset(
-          AssetMapper.emptyBoxLottie,
-          width: size,
-          height: size,
-        ),
+  Widget build(BuildContext context) => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Lottie.asset(
+            AssetMapper.emptyBoxLottie,
+            width: size,
+            height: size,
+          ),
+          if (message != null) Text(message!)
+        ],
       );
 }

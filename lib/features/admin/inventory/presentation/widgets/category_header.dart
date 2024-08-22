@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +21,6 @@ class CategoryHeader extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height * .06,
       child: Row(
         children: [
-          const SizedBox(width: 5.0),
           IconButton.outlined(
             onPressed: () =>
                 Navigator.of(context).pushNamed(RouteMapper.addCategoryScreen),
@@ -57,7 +58,7 @@ class CategoryHeader extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
             child: FilledButton(
-              onPressed: () => filter.value = label,
+              onPressed: () => _onCategoryPress(label, isSelected),
               style: FilledButton.styleFrom(
                 side: isSelected
                     ? null
@@ -83,4 +84,13 @@ class CategoryHeader extends StatelessWidget {
           );
         },
       );
+
+  // Private function only accessible inside this class
+  void _onCategoryPress(String label, bool isSelected) {
+    if (isSelected) {
+      filter.value = "";
+    } else {
+      filter.value = label;
+    }
+  }
 }

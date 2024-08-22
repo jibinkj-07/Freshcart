@@ -11,12 +11,9 @@ class CartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        EmptyAnimation(size: MediaQuery.sizeOf(context).width * .5),
-        const Text("Your cart is empty.")
-      ],
+    return EmptyAnimation(
+      size: MediaQuery.sizeOf(context).width * .5,
+      message: "Your cart is empty.",
     );
   }
 }

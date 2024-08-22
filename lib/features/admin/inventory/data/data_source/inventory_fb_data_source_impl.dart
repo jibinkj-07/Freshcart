@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:either_dart/either.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -48,12 +49,34 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
   }
 
   @override
-  Future<Either<Failure, bool>> addProduct(
-      {required ProductModel product}) async {
+  Future<Either<Failure, bool>> addProduct({
+    required ProductModel product,
+    required List<File> images,
+    required File featuredImage,
+  }) async {
     try {
+      List<String> urls = [];
+      // Uploading featured Image into cloud storage bucket
+      final featuredUrl = await _uploadImage(
+        path: "Products/${product.category.title}/${product.name}"
+            "/${DateTime.now().millisecondsSinceEpoch}-featured.jpg",
+        image: featuredImage,
+      );
+
+      // Uploading images into cloud storage bucket
+      for (final image in images) {
+        urls.add(
+          await _uploadImage(
+            path: "Products/${product.category.title}/${product.name}"
+                "/${DateTime.now().millisecondsSinceEpoch}.jpg",
+            image: image,
+          ),
+        );
+      }
+      // Adding info into realtime db
       await _firebaseDatabase
           .ref(PathMapper.productPath)
-          .update(product.toFirebaseJson());
+          .update(product.toFirebaseJson(urls, featuredUrl));
       return const Right(true);
     } catch (e) {
       log("er: [addProduct][inventory_fb_data_source_impl.dart] $e");
@@ -130,6 +153,20 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
     } catch (e) {
       log("er: [getAllProducts][inventory_fb_data_source_impl.dart] $e");
       return Left(Failure(message: "An unexpected error occurred. Try again"));
+    }
+  }
+
+  Future<String> _uploadImage({
+    required String path,
+    required File image,
+  }) async {
+    try {
+      final reference = _firebaseStorage.ref(path);
+      await reference.putFile(image);
+      return await reference.getDownloadURL();
+    } catch (e) {
+      log("er: [_uploadImage][inventory_fb_data_source_impl.dart] $e");
+      return "";
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -37,7 +38,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ) async {
     try {
       emit(state.copyWith(status: ProductStatus.adding, error: null));
-      final result = await _inventoryRepo.addProduct(product: event.product);
+      final result = await _inventoryRepo.addProduct(
+        product: event.product,
+        images: event.images,
+        featuredImage: event.featuredImage,
+      );
       if (result.isLeft) {
         emit(state.copyWith(status: ProductStatus.idle, error: result.left));
       } else {

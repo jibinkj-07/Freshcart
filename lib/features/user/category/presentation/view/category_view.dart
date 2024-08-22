@@ -11,12 +11,9 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        EmptyAnimation(size: MediaQuery.sizeOf(context).width * .5),
-        const Text("No products available at the moment.")
-      ],
+    return EmptyAnimation(
+      size: MediaQuery.sizeOf(context).width * .5,
+      message: "No products available at the moment.",
     );
   }
 }

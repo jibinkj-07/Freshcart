@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/category_header.dart';
+import '../widgets/products_view.dart';
 
 /// @author : Jibin K John
 /// @date   : 17/08/2024
@@ -14,7 +15,7 @@ class InventoryView extends StatefulWidget {
 }
 
 class _InventoryViewState extends State<InventoryView> {
-  final ValueNotifier<String> _filter = ValueNotifier("All");
+  final ValueNotifier<String> _filter = ValueNotifier("");
 
   @override
   void dispose() {
@@ -24,10 +25,14 @@ class _InventoryViewState extends State<InventoryView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        CategoryHeader(filter: _filter),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Column(
+        children: [
+          CategoryHeader(filter: _filter),
+          Expanded(child: ProductsView(filter: _filter)),
+        ],
+      ),
     );
   }
 }

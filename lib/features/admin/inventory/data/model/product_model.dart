@@ -26,6 +26,8 @@ class ProductModel {
   final List<Comment> comments;
   @HiveField(8)
   final List<String> images;
+  @HiveField(9)
+  final String featuredImage;
 
   ProductModel({
     required this.id,
@@ -37,6 +39,7 @@ class ProductModel {
     required this.salePrice,
     required this.comments,
     required this.images,
+    required this.featuredImage,
   });
 
   // Method to calculate discount percentage
@@ -69,10 +72,15 @@ class ProductModel {
           .map((data) => Comment.fromFirebase(data as DataSnapshot))
           .toList(),
       images: images.map((image) => image.toString()).toList(),
+      featuredImage: product.child("featured_image").value.toString(),
     );
   }
 
-  Map<String, dynamic> toFirebaseJson() => {
+  Map<String, dynamic> toFirebaseJson(
+    List<String> urls,
+    String featuredImageUrl,
+  ) =>
+      {
         id: {
           "name": name,
           "description": description,
@@ -81,7 +89,8 @@ class ProductModel {
           "sale_price": salePrice,
           "category_id": category.id,
           "comments": comments.map((item) => item.toFirebaseJson()).toList(),
-          "images": images,
+          "images": urls,
+          "featured_image": featuredImageUrl,
         }
       };
 }

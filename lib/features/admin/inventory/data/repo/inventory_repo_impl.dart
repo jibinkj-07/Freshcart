@@ -7,6 +7,7 @@ import '../data_source/inventory_fb_data_source.dart';
 import '../model/category_model.dart';
 import '../model/comment.dart';
 import '../model/product_model.dart';
+import 'dart:io';
 
 class InventoryRepoImpl implements InventoryRepo {
   final InventoryFbDataSource _inventoryFbDataSource;
@@ -35,10 +36,17 @@ class InventoryRepoImpl implements InventoryRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> addProduct(
-      {required ProductModel product}) async {
+  Future<Either<Failure, bool>> addProduct({
+    required ProductModel product,
+    required List<File> images,
+    required File featuredImage,
+  }) async {
     if (await InternetConnection().hasInternetAccess) {
-      return await _inventoryFbDataSource.addProduct(product: product);
+      return await _inventoryFbDataSource.addProduct(
+        product: product,
+        images: images,
+        featuredImage: featuredImage,
+      );
     } else {
       return Left(Failure(message: "Check your internet connection"));
     }

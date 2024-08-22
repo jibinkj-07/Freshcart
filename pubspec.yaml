@@ -26,6 +26,8 @@ dependencies:
   shimmer_animation: ^2.2.1 # loading animation helper
   cached_network_image: # for network image loader
   syncfusion_flutter_charts: ^22.2.9 # for graph representation
+  qr_code_scanner: ^1.0.1 # for scanning QR codes
+  qr_flutter: ^4.1.0 # to generate QR code
 
 dev_dependencies:
   flutter_test:

@@ -13,4 +13,5 @@ sealed class RouteMapper {
   static const String resetPasswordScreen = '/reset-password-screen';
   static const String imagePreviewScreen = '/image-preview-screen';
   static const String addCategoryScreen = '/add-category-screen';
+  static const String addProductScreen = '/add-product-screen';
 }
