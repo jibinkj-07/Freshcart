@@ -13,6 +13,7 @@ class AdminTopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      surfaceTintColor: Colors.transparent,
       title: Text(
         UtilityHelper.getTitle(selectedIndex),
         style: const TextStyle(

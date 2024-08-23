@@ -36,7 +36,7 @@ class InventoryRepoImpl implements InventoryRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> addProduct({
+  Future<Either<Failure, ProductModel>> addProduct({
     required ProductModel product,
     required List<File> images,
     required File featuredImage,

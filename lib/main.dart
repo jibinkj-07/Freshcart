@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/bloc/bloc_providers.dart';
-import 'core/config/config_helper.dart';
+import 'core/config/app_config.dart';
 import 'core/config/hive/hive_config.dart';
 import 'core/config/injection/injection_container.dart';
 import 'core/config/route/app_routes.dart';
@@ -55,7 +55,7 @@ class FreshcartApp extends StatelessWidget {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (ctx, state) {
         return MaterialApp(
-          title: ConfigHelper.appName,
+          title: AppConfig.appName,
           theme: LightTheme.schema,
           darkTheme: DarkTheme.schema,
           themeMode: state.themeMode,

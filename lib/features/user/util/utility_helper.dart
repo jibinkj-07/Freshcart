@@ -1,4 +1,4 @@
-import '../../../core/config/config_helper.dart';
+import '../../../core/config/app_config.dart';
 
 sealed class UtilityHelper {
   static String getTitle(int index) {
@@ -10,7 +10,7 @@ sealed class UtilityHelper {
       case 3:
         return "My Cart";
       default:
-        return ConfigHelper.appName;
+        return AppConfig.appName;
     }
   }
 }

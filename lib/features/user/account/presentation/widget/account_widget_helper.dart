@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/config/config_helper.dart';
+import '../../../../../core/config/app_config.dart';
 import '../../../../../core/util/helper/asset_mapper.dart';
 
 sealed class AccountWidgetHelper {
   static Widget spacer({double? height}) => SizedBox(height: height ?? 15.0);
 
   static Widget appIconBox(BuildContext context) => Container(
-        color: ConfigHelper.appColor,
+        color: AppConfig.appColor,
         padding: EdgeInsets.only(
           top: MediaQuery.of(context).viewPadding.top,
         ),

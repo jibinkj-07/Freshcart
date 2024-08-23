@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config/config_helper.dart';
+import '../../config/app_config.dart';
 
 class OutlinedTextField extends StatelessWidget {
   final String textFieldKey;
@@ -54,7 +54,7 @@ class OutlinedTextField extends StatelessWidget {
       readOnly: readOnly ?? false,
       obscureText: isObscure,
       textInputAction: inputAction,
-      cursorColor: ConfigHelper.appColor,
+      cursorColor: AppConfig.appColor,
       keyboardType: inputType,
       textCapitalization: textCapitalization,
       onChanged: onChanged,
@@ -68,7 +68,7 @@ class OutlinedTextField extends StatelessWidget {
         prefixIconColor: WidgetStateColor.resolveWith(
           (Set<WidgetState> states) {
             if (states.contains(WidgetState.focused)) {
-              return ConfigHelper.appColor;
+              return AppConfig.appColor;
             }
             return Colors.grey;
           },
@@ -90,7 +90,7 @@ class OutlinedTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(width: 2, color: ConfigHelper.appColor),
+          borderSide: BorderSide(width: 2, color: AppConfig.appColor),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),

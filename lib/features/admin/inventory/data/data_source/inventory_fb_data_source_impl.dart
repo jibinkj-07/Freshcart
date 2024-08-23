@@ -49,7 +49,7 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
   }
 
   @override
-  Future<Either<Failure, bool>> addProduct({
+  Future<Either<Failure, ProductModel>> addProduct({
     required ProductModel product,
     required List<File> images,
     required File featuredImage,
@@ -77,7 +77,12 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
       await _firebaseDatabase
           .ref(PathMapper.productPath)
           .update(product.toFirebaseJson(urls, featuredUrl));
-      return const Right(true);
+      return Right(
+        product.copyWith(
+          featuredImage: featuredUrl,
+          images: urls,
+        ),
+      );
     } catch (e) {
       log("er: [addProduct][inventory_fb_data_source_impl.dart] $e");
       return Left(Failure(message: "An unexpected error occurred. Try again"));

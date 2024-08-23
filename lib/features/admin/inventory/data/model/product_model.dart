@@ -45,6 +45,33 @@ class ProductModel {
     required this.expiry,
   });
 
+  ProductModel copyWith({
+    String? id,
+    String? name,
+    String? description,
+    int? quantity,
+    CategoryModel? category,
+    double? price,
+    double? salePrice,
+    List<Comment>? comments,
+    List<String>? images,
+    String? featuredImage,
+    DateTime? expiry,
+  }) =>
+      ProductModel(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        description: description ?? this.description,
+        quantity: quantity ?? this.quantity,
+        category: category ?? this.category,
+        price: price ?? this.price,
+        salePrice: salePrice ?? this.salePrice,
+        comments: comments ?? this.comments,
+        images: images ?? this.images,
+        featuredImage: featuredImage ?? this.featuredImage,
+        expiry: expiry ?? this.expiry,
+      );
+
   // Method to calculate discount percentage
   int get discountPercentage {
     if (price > 0 && salePrice < price) {

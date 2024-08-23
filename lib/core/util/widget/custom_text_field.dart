@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config/config_helper.dart';
+import '../../config/app_config.dart';
 
 class CustomTextField extends StatelessWidget {
   final String textFieldKey;
@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
       readOnly: readOnly ?? false,
       obscureText: isObscure,
       textInputAction: inputAction,
-      cursorColor: ConfigHelper.appColor,
+      cursorColor: AppConfig.appColor,
       keyboardType: inputType,
       textCapitalization: textCapitalization,
       onChanged: onChanged,
@@ -62,7 +62,7 @@ class CustomTextField extends StatelessWidget {
         prefixIconColor: WidgetStateColor.resolveWith(
           (Set<WidgetState> states) {
             if (states.contains(WidgetState.focused)) {
-              return ConfigHelper.appColor;
+              return AppConfig.appColor;
             }
             return Colors.grey;
           },

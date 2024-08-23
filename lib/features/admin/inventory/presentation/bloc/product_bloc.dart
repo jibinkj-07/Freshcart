@@ -52,7 +52,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(state.copyWith(status: ProductStatus.idle, error: result.left));
       } else {
         final updatedList = List<ProductModel>.from(state.products)
-          ..add(event.product);
+          ..add(result.right);
         emit(
           state.copyWith(
             status: ProductStatus.added,

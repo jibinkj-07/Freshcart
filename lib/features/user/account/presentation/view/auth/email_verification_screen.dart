@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../../core/config/config_helper.dart';
+import '../../../../../../core/config/app_config.dart';
 import '../../../../../../core/config/route/route_mapper.dart';
 import '../../../../../../core/util/helper/asset_mapper.dart';
 import '../../../../../common/presentation/bloc/account_bloc.dart';
@@ -122,7 +122,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                 text: "We've sent a verification email to ",
                                 style: TextStyle(
                                   color: Theme.of(context).primaryColor,
-                                  fontFamily: ConfigHelper.fontFamily,
+                                  fontFamily: AppConfig.fontFamily,
                                 ),
                               ),
                               TextSpan(
@@ -140,7 +140,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                     " make sure to check your spam or junk folder",
                                 style: TextStyle(
                                   color: Theme.of(context).primaryColor,
-                                  fontFamily: ConfigHelper.fontFamily,
+                                  fontFamily: AppConfig.fontFamily,
                                 ),
                               ),
                             ],

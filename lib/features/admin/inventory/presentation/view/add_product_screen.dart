@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import '../../../../../core/config/config_helper.dart';
+import '../../../../../core/config/app_config.dart';
 import '../../../../../core/config/route/route_mapper.dart';
 import '../../../../../core/util/widget/animated_loading_button.dart';
 import '../../../../../core/util/widget/custom_snackbar.dart';
@@ -115,7 +115,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 style: TextStyle(
                   fontSize: 15.0,
                   color: Theme.of(context).primaryColor,
-                  fontFamily: ConfigHelper.fontFamily,
+                  fontFamily: AppConfig.fontFamily,
                 ),
                 decoration: InputDecoration(
                   hintText: 'Please select a category',
@@ -137,7 +137,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide(
                       width: 2,
-                      color: ConfigHelper.appColor,
+                      color: AppConfig.appColor,
                     ),
                   ),
                   errorBorder: OutlineInputBorder(

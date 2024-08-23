@@ -11,7 +11,7 @@ abstract class InventoryRepo {
   /// PRODUCTS
   Future<Either<Failure, List<ProductModel>>> getAllProducts();
 
-  Future<Either<Failure, bool>> addProduct({
+  Future<Either<Failure, ProductModel>> addProduct({
     required ProductModel product,
     required List<File> images,
     required File featuredImage,

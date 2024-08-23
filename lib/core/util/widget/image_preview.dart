@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../config/config_helper.dart';
+import '../../config/app_config.dart';
 import '../helper/asset_mapper.dart';
 
 class ImagePreview extends StatelessWidget {
@@ -55,7 +55,7 @@ class ImagePreview extends StatelessWidget {
                           downloadProgress,
                         ) =>
                             CircularProgressIndicator(
-                          color: ConfigHelper.appColor,
+                          color: AppConfig.appColor,
                           value: downloadProgress.progress,
                         ),
                         errorWidget: (

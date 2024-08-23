@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config/config_helper.dart';
+import '../../config/app_config.dart';
 
 class CustomSnackBar {
   static void showErrorSnackBar(BuildContext context, String message) => _snackbar(
@@ -55,7 +55,7 @@ class CustomSnackBar {
               child: Text(
                 message,
                 style: TextStyle(
-                  fontFamily: ConfigHelper.fontFamily,
+                  fontFamily: AppConfig.fontFamily,
                   color: textColor,
                 ),
               ),

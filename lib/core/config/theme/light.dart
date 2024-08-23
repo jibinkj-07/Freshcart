@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../config_helper.dart';
+import '../app_config.dart';
 import '../route/custom_page_transition.dart';
 
 sealed class LightTheme {
   static const Color _bgColor = Color(0xFFF5F5FA);
-  static final Color _primaryColor = ConfigHelper.appColor;
+  static final Color _primaryColor = AppConfig.appColor;
   static const Color _surfaceColor = Color(0xFFE9E9F5);
 
   static final schema = ThemeData(
     useMaterial3: true,
-    fontFamily: ConfigHelper.fontFamily,
+    fontFamily: AppConfig.fontFamily,
     primaryColor: Colors.black,
     scaffoldBackgroundColor: _bgColor,
     colorScheme: ColorScheme.fromSeed(
@@ -28,22 +28,22 @@ sealed class LightTheme {
       bodySmall: TextStyle(
         inherit: true,
         color: Colors.black,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
       ),
       bodyMedium: TextStyle(
         inherit: true,
         color: Colors.black,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
       ),
       bodyLarge: TextStyle(
         inherit: true,
         color: Colors.black,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: ConfigHelper.appColor,
+        foregroundColor: AppConfig.appColor,
       ),
     ),
     filledButtonTheme: FilledButtonThemeData(
@@ -57,12 +57,12 @@ sealed class LightTheme {
         inherit: true,
         color: Colors.black,
         fontWeight: FontWeight.w500,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
       ),
       subtitleTextStyle: TextStyle(
         inherit: true,
         color: Colors.grey,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
         fontSize: 13.0,
       ),
     ),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../config_helper.dart';
+import '../app_config.dart';
 import '../route/custom_page_transition.dart';
 
 sealed class DarkTheme {
   static const Color bgColor = Color(0xFF121414);
   static const Color _surfaceColor = Color(0xFF2E2F33);
-  static final Color _primaryColor = ConfigHelper.appColor;
+  static final Color _primaryColor = AppConfig.appColor;
 
   static final schema = ThemeData(
     useMaterial3: true,
-    fontFamily: ConfigHelper.fontFamily,
+    fontFamily: AppConfig.fontFamily,
     scaffoldBackgroundColor: bgColor,
     primaryColor: Colors.white,
     colorScheme: ColorScheme.fromSeed(
@@ -29,17 +29,17 @@ sealed class DarkTheme {
       bodySmall: TextStyle(
         inherit: true,
         color: Colors.white,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
       ),
       bodyMedium: TextStyle(
         inherit: true,
         color: Colors.white,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
       ),
       bodyLarge: TextStyle(
         inherit: true,
         color: Colors.white,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
       ),
     ),
     filledButtonTheme: FilledButtonThemeData(
@@ -50,7 +50,7 @@ sealed class DarkTheme {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: ConfigHelper.appColor,
+        foregroundColor: AppConfig.appColor,
       ),
     ),
     listTileTheme: ListTileThemeData(
@@ -58,12 +58,12 @@ sealed class DarkTheme {
         inherit: true,
         color: Colors.white,
         fontWeight: FontWeight.w500,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
       ),
       subtitleTextStyle: TextStyle(
         inherit: true,
         color: Colors.grey,
-        fontFamily: ConfigHelper.fontFamily,
+        fontFamily: AppConfig.fontFamily,
         fontSize: 13.0,
       ),
     ),
