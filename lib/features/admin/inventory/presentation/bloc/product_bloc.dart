@@ -36,8 +36,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     AddProduct event,
     Emitter<ProductState> emit,
   ) async {
+    emit(
+      state.copyWith(
+        error: null,
+        status: ProductStatus.adding,
+      ),
+    );
     try {
-      emit(state.copyWith(status: ProductStatus.adding, error: null));
       final result = await _inventoryRepo.addProduct(
         product: event.product,
         images: event.images,

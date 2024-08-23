@@ -6,6 +6,7 @@ class OutlinedTextField extends StatelessWidget {
   final String textFieldKey;
   final bool isObscure;
   final bool? readOnly;
+  final bool? enabled;
   final Widget? icon;
   final String hintText;
   final String? initialValue;
@@ -19,6 +20,7 @@ class OutlinedTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextCapitalization textCapitalization;
   final Function(String)? onChanged;
+  final void Function()? onTap;
 
   const OutlinedTextField({
     super.key,
@@ -38,13 +40,17 @@ class OutlinedTextField extends StatelessWidget {
     this.initialValue,
     this.readOnly,
     this.minLines,
+    this.onTap,
+    this.enabled,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       key: ValueKey(key),
+      enabled: enabled,
       controller: controller,
+      onTap: onTap,
       readOnly: readOnly ?? false,
       obscureText: isObscure,
       textInputAction: inputAction,
@@ -74,6 +80,10 @@ class OutlinedTextField extends StatelessWidget {
           fontSize: 14.0,
         ),
         contentPadding: const EdgeInsets.all(15.0),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(width: 1, color: Colors.grey),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: const BorderSide(width: 1, color: Colors.grey),

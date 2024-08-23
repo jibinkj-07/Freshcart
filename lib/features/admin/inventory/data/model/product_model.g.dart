@@ -27,13 +27,14 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       comments: (fields[7] as List).cast<Comment>(),
       images: (fields[8] as List).cast<String>(),
       featuredImage: fields[9] as String,
+      expiry: fields[10] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProductModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -53,7 +54,9 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       ..writeByte(8)
       ..write(obj.images)
       ..writeByte(9)
-      ..write(obj.featuredImage);
+      ..write(obj.featuredImage)
+      ..writeByte(10)
+      ..write(obj.expiry);
   }
 
   @override

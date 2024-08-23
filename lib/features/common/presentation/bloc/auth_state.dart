@@ -31,7 +31,7 @@ class AuthState extends Equatable {
         emailStatus: emailStatus ?? this.emailStatus,
         userInfo: userInfo ?? this.userInfo,
         authStatus: authStatus ?? this.authStatus,
-        error: error ?? this.error,
+        error: error,
       );
 
   @override

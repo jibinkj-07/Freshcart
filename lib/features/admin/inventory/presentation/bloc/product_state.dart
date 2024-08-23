@@ -31,7 +31,7 @@ class ProductState extends Equatable {
       ProductState(
         status: status ?? this.status,
         products: products ?? this.products,
-        error: error ?? this.error,
+        error: error,
       );
 
   @override

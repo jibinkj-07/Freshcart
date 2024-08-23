@@ -67,6 +67,16 @@ sealed class DarkTheme {
         fontSize: 13.0,
       ),
     ),
+    datePickerTheme: DatePickerThemeData(
+      backgroundColor: _surfaceColor,
+      headerForegroundColor: Colors.white,
+      yearForegroundColor: WidgetStateColor.resolveWith(
+        (states) =>
+            states.contains(WidgetState.selected) ? Colors.white : Colors.grey,
+      ),
+      todayForegroundColor:
+          WidgetStateColor.resolveWith((_) => Colors.amber.shade100),
+    ),
     pageTransitionsTheme: PageTransitionsTheme(
       builders: {
         TargetPlatform.android: CustomPageTransitionBuilder(),

@@ -1,14 +1,15 @@
+import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fresh_cart/features/admin/inventory/data/model/product_model.dart';
+import 'package:intl/intl.dart';
 import '../../../../../core/config/config_helper.dart';
 import '../../../../../core/config/route/route_mapper.dart';
 import '../../../../../core/util/widget/animated_loading_button.dart';
 import '../../../../../core/util/widget/custom_snackbar.dart';
 import '../../../../../core/util/widget/outlined_text_field.dart';
 import '../../data/model/category_model.dart';
+import '../../data/model/product_model.dart';
 import '../bloc/category_bloc.dart';
 import '../bloc/product_bloc.dart';
 import '../widgets/featured_image.dart';
@@ -31,6 +32,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final ValueNotifier<CategoryModel?> _selectedCategory = ValueNotifier(null);
   final ValueNotifier<List<File>> _images = ValueNotifier([]);
   final ValueNotifier<File?> _featuredImage = ValueNotifier(null);
+  final TextEditingController _expiryController = TextEditingController();
+  DateTime _expiry = DateTime.now().add(const Duration(days: 1));
+
+  final ValueNotifier<bool> _expiryNotApplicable = ValueNotifier(false);
   String _name = "";
   String _description = "";
   int _quantity = 0;
@@ -38,11 +43,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
   double _salesPrice = 0.0;
 
   @override
+  void initState() {
+    _expiryController.text = _dateFormatter(_expiry);
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _images.dispose();
     _featuredImage.dispose();
     _selectedCategory.dispose();
     _loading.dispose();
+    _expiryNotApplicable.dispose();
+    _expiryController.dispose();
     super.dispose();
   }
 
@@ -220,6 +233,53 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ],
             ),
             const SizedBox(height: 20.0),
+            ValueListenableBuilder(
+                valueListenable: _expiryNotApplicable,
+                builder: (ctx, isExpiry, _) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedTextField(
+                          readOnly: true,
+                          enabled: !isExpiry,
+                          onTap: () async {
+                            final date = await showDatePicker(
+                              context: context,
+                              firstDate: DateTime.now(),
+                              initialDate: _expiry,
+                              lastDate: DateTime(2900),
+                            );
+                            if (date != null) {
+                              _expiryController.text = _dateFormatter(date);
+                              _expiry = date;
+                            }
+                          },
+                          controller: _expiryController,
+                          textFieldKey: "expiry",
+                          isObscure: false,
+                          hintText: "Expiry Date",
+                          inputAction: TextInputAction.next,
+                          textCapitalization: TextCapitalization.none,
+                          validator: (data) {
+                            final value = data.toString().trim();
+                            if (value.isEmpty && _expiryNotApplicable.value) {
+                              return "Expiry date is missing";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 10.0),
+                      Checkbox(
+                        value: isExpiry,
+                        onChanged: (value) =>
+                            _expiryNotApplicable.value = value ?? false,
+                      ),
+                      const Text("Not applicable")
+                    ],
+                  );
+                }),
+            const SizedBox(height: 20.0),
             FeaturedImage(featuredImage: _featuredImage),
             const SizedBox(height: 20.0),
             ProductImageUploader(images: _images),
@@ -252,6 +312,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   void _onAdd() {
+    log("expiry is $_expiry");
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       FocusScope.of(context).unfocus();
@@ -278,6 +339,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         salePrice: _salesPrice,
         comments: [],
         images: [],
+        expiry: _expiryNotApplicable.value ? null : _expiry,
       );
       context.read<ProductBloc>().add(
             AddProduct(
@@ -301,5 +363,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
       return false;
     }
     return double.tryParse(s) != null;
+  }
+
+  String _dateFormatter(DateTime dateTime) {
+    return DateFormat.yMMMd().format(dateTime);
   }
 }

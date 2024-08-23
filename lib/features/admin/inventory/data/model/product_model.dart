@@ -28,6 +28,8 @@ class ProductModel {
   final List<String> images;
   @HiveField(9)
   final String featuredImage;
+  @HiveField(10)
+  final DateTime? expiry;
 
   ProductModel({
     required this.id,
@@ -40,6 +42,7 @@ class ProductModel {
     required this.comments,
     required this.images,
     required this.featuredImage,
+    required this.expiry,
   });
 
   // Method to calculate discount percentage
@@ -59,6 +62,11 @@ class ProductModel {
     final images = product.child("images").exists
         ? product.child("images").value as List<dynamic>
         : [];
+    final expiry = product.child("expiry").exists
+        ? DateTime.fromMillisecondsSinceEpoch(
+            int.parse(product.child("expiry").value.toString()),
+          )
+        : null;
     final categoryId = product.child("category_id").value.toString();
     return ProductModel(
       id: product.key.toString(),
@@ -73,6 +81,7 @@ class ProductModel {
           .toList(),
       images: images.map((image) => image.toString()).toList(),
       featuredImage: product.child("featured_image").value.toString(),
+      expiry: expiry,
     );
   }
 
@@ -91,6 +100,7 @@ class ProductModel {
           "comments": comments.map((item) => item.toFirebaseJson()).toList(),
           "images": urls,
           "featured_image": featuredImageUrl,
+          "expiry": expiry?.millisecondsSinceEpoch.toString(),
         }
       };
 }

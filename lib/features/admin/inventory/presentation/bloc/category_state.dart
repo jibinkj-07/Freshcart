@@ -31,7 +31,7 @@ class CategoryState extends Equatable {
       CategoryState(
         category: category ?? this.category,
         status: status ?? this.status,
-        error: error ?? this.error,
+        error: error,
       );
 
   @override

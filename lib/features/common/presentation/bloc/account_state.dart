@@ -26,7 +26,7 @@ class AccountState extends Equatable {
   AccountState copyWith({AccountStatus? status, Failure? error}) =>
       AccountState(
         status: status ?? this.status,
-        error: error ?? this.error,
+        error: error,
       );
 
   @override
