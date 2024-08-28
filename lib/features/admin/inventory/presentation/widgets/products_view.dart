@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/util/widget/empty_animation.dart';
 import '../bloc/product_bloc.dart';
-import 'product_list_view.dart';
+import 'all_products_view.dart';
 
 /// @author : Jibin K John
 /// @date   : 22/08/2024
@@ -23,7 +23,7 @@ class ProductsView extends StatelessWidget {
         }
 
         if (state.products.isNotEmpty) {
-          return ProductListView(
+          return AllProductsView(
             filter: filter,
             allProducts: state.products,
           );
