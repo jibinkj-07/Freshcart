@@ -19,3 +19,11 @@ class EmailVerificationArgument {
     required this.fromProfile,
   });
 }
+
+class AdminProductDetailArgument {
+  final String productId;
+
+  AdminProductDetailArgument({
+    required this.productId,
+  });
+}

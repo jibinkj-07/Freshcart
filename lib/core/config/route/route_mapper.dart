@@ -14,4 +14,5 @@ sealed class RouteMapper {
   static const String imagePreviewScreen = '/image-preview-screen';
   static const String addCategoryScreen = '/add-category-screen';
   static const String addProductScreen = '/add-product-screen';
+  static const String adminProductDetailScreen = '/admin-product-detail-screen';
 }
