@@ -21,6 +21,7 @@ class OutlinedTextField extends StatelessWidget {
   final TextCapitalization textCapitalization;
   final Function(String)? onChanged;
   final void Function()? onTap;
+  final int? maxLength;
 
   const OutlinedTextField({
     super.key,
@@ -42,6 +43,7 @@ class OutlinedTextField extends StatelessWidget {
     this.minLines,
     this.onTap,
     this.enabled,
+    this.maxLength,
   });
 
   @override
@@ -63,7 +65,9 @@ class OutlinedTextField extends StatelessWidget {
       maxLines: maxLines,
       minLines: minLines,
       initialValue: initialValue,
+      maxLength: maxLength,
       decoration: InputDecoration(
+        counter: const SizedBox(), // hiding counter values under the text field
         prefixIcon: icon,
         prefixIconColor: WidgetStateColor.resolveWith(
           (Set<WidgetState> states) {

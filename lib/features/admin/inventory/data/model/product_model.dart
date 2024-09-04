@@ -30,6 +30,8 @@ class ProductModel {
   final String featuredImage;
   @HiveField(10)
   final DateTime? expiry;
+  @HiveField(11)
+  final int offerPercentage;
 
   ProductModel({
     required this.id,
@@ -43,6 +45,7 @@ class ProductModel {
     required this.images,
     required this.featuredImage,
     required this.expiry,
+    required this.offerPercentage,
   });
 
   ProductModel copyWith({
@@ -56,7 +59,7 @@ class ProductModel {
     List<Comment>? comments,
     List<String>? images,
     String? featuredImage,
-    DateTime? expiry,
+    int? offerPercentage,
   }) =>
       ProductModel(
         id: id ?? this.id,
@@ -70,6 +73,7 @@ class ProductModel {
         images: images ?? this.images,
         featuredImage: featuredImage ?? this.featuredImage,
         expiry: expiry ?? this.expiry,
+        offerPercentage: offerPercentage ?? this.offerPercentage,
       );
 
   // Method to calculate discount percentage
@@ -96,20 +100,21 @@ class ProductModel {
         : null;
     final categoryId = product.child("category_id").value.toString();
     return ProductModel(
-      id: product.key.toString(),
-      name: product.child("name").value.toString(),
-      description: product.child("description").value.toString(),
-      quantity: int.parse(product.child("quantity").value.toString()),
-      category: CategoryModel.fromFirebase(categorySnapshot.child(categoryId)),
-      price: double.parse(product.child("price").value.toString()),
-      salePrice: double.parse(product.child("sale_price").value.toString()),
-      comments: comments
-          .map((data) => Comment.fromFirebase(data as DataSnapshot))
-          .toList(),
-      images: images.map((image) => image.toString()).toList(),
-      featuredImage: product.child("featured_image").value.toString(),
-      expiry: expiry,
-    );
+        id: product.key.toString(),
+        name: product.child("name").value.toString(),
+        description: product.child("description").value.toString(),
+        quantity: int.parse(product.child("quantity").value.toString()),
+        category:
+            CategoryModel.fromFirebase(categorySnapshot.child(categoryId)),
+        price: double.parse(product.child("price").value.toString()),
+        salePrice: double.parse(product.child("sale_price").value.toString()),
+        comments: comments
+            .map((data) => Comment.fromFirebase(data as DataSnapshot))
+            .toList(),
+        images: images.map((image) => image.toString()).toList(),
+        featuredImage: product.child("featured_image").value.toString(),
+        expiry: expiry,
+        offerPercentage: int.parse(product.child("offer").value.toString()));
   }
 
   Map<String, dynamic> toFirebaseJson(
@@ -128,6 +133,7 @@ class ProductModel {
           "images": urls,
           "featured_image": featuredImageUrl,
           "expiry": expiry?.millisecondsSinceEpoch.toString(),
+          "offer": offerPercentage,
         }
       };
 }

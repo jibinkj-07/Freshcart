@@ -41,6 +41,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   int _quantity = 0;
   double _price = 0.0;
   double _salesPrice = 0.0;
+  int _offer = 0;
 
   @override
   void initState() {
@@ -166,23 +167,54 @@ class _AddProductScreenState extends State<AddProductScreen> {
               );
             }),
             const SizedBox(height: 20.0),
-            OutlinedTextField(
-              textFieldKey: "quantity",
-              isObscure: false,
-              hintText: "Quantity",
-              inputAction: TextInputAction.next,
-              textCapitalization: TextCapitalization.none,
-              inputType: TextInputType.number,
-              validator: (data) {
-                final value = data.toString().trim();
-                if (value.isEmpty) {
-                  return "Quantity is missing";
-                } else if (!_isNumeric(value)) {
-                  return "Invalid format";
-                }
-                return null;
-              },
-              onSaved: (data) => _quantity = int.parse(data.toString().trim()),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedTextField(
+                    textFieldKey: "quantity",
+                    isObscure: false,
+                    hintText: "Quantity",
+                    inputAction: TextInputAction.next,
+                    textCapitalization: TextCapitalization.none,
+                    inputType: TextInputType.number,
+                    maxLength: 6,
+                    validator: (data) {
+                      final value = data.toString().trim();
+                      if (value.isEmpty) {
+                        return "Quantity is missing";
+                      } else if (!_isNumeric(value)) {
+                        return "Invalid format";
+                      }
+                      return null;
+                    },
+                    onSaved: (data) =>
+                        _quantity = int.parse(data.toString().trim()),
+                  ),
+                ),
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: OutlinedTextField(
+                    textFieldKey: "offer",
+                    isObscure: false,
+                    hintText: "Offer in percentage",
+                    inputAction: TextInputAction.next,
+                    textCapitalization: TextCapitalization.none,
+                    inputType: TextInputType.number,
+                    maxLength: 3,
+                    validator: (data) {
+                      final value = data.toString().trim();
+                      if (!_isNumeric(value)) {
+                        return "Invalid format";
+                      }else if(int.parse(value)>100){
+                        return "Must be less than 100";
+                      }
+                      return null;
+                    },
+                    onSaved: (data) =>
+                        _offer = int.parse(data.toString().trim()),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20.0),
             Row(
@@ -340,6 +372,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         comments: [],
         images: [],
         expiry: _expiryNotApplicable.value ? null : _expiry,
+        offerPercentage: _offer,
       );
       context.read<ProductBloc>().add(
             AddProduct(
