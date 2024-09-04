@@ -4,8 +4,9 @@ import '../../config/app_config.dart';
 
 class ImageIndicator extends StatelessWidget {
   final ValueNotifier<int> index;
+  final int totalImages;
 
-  const ImageIndicator({super.key, required this.index});
+  const ImageIndicator({super.key, required this.index, required this.totalImages});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class ImageIndicator extends StatelessWidget {
       builder: (ctx, i, child) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
-          3,
+        totalImages,
           (index) => AnimatedContainer(
             width: i == index ? 20.0 : 8.0,
             height: 8.0,

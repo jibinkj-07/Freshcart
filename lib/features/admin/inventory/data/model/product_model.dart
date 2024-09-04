@@ -85,6 +85,16 @@ class ProductModel {
     }
   }
 
+  // Function to calculate price after discount
+  double get priceAfterDiscount {
+    double discountAmt=0.0;
+    if (offerPercentage > 0) {
+       discountAmt = (salePrice * (offerPercentage / 100));
+    }
+    
+    return double.parse((salePrice-discountAmt).toStringAsFixed(2));
+  }
+
   factory ProductModel.fromFirebase(
       DataSnapshot product, DataSnapshot categorySnapshot) {
     final comments = product.child("comments").exists

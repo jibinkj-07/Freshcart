@@ -58,7 +58,7 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
       List<String> urls = [];
       // Uploading featured Image into cloud storage bucket
       final featuredUrl = await _uploadImage(
-        path: "Products/${product.category.title}/${product.name}"
+        path: "Products/${product.category.title}/${product.id}"
             "/${DateTime.now().millisecondsSinceEpoch}-featured.jpg",
         image: featuredImage,
       );
@@ -67,7 +67,7 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
       for (final image in images) {
         urls.add(
           await _uploadImage(
-            path: "Products/${product.category.title}/${product.name}"
+            path: "Products/${product.category.title}/${product.id}"
                 "/${DateTime.now().millisecondsSinceEpoch}.jpg",
             image: image,
           ),
@@ -117,7 +117,11 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
   @override
   Future<Either<Failure, bool>> deleteProduct({required String id}) async {
     try {
+      // todo delete all images from storage bucket
+      // Delete all stored images
+     // await _deleteAllImagesInFolder("Products/${product.category.title}/$id");
       await _firebaseDatabase.ref("${PathMapper.productPath}/$id").remove();
+
       return const Right(true);
     } catch (e) {
       log("er: [deleteProduct][inventory_fb_data_source_impl.dart] $e");
@@ -172,6 +176,25 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
     } catch (e) {
       log("er: [_uploadImage][inventory_fb_data_source_impl.dart] $e");
       return "";
+    }
+  }
+
+  Future<void> _deleteAllImagesInFolder(String folderPath) async {
+    // Get a reference to the folder
+    final Reference folderRef = _firebaseStorage.ref().child(folderPath);
+
+    // List all files in the folder
+    final ListResult result = await folderRef.listAll();
+
+    // Delete each file in the folder
+    for (Reference fileRef in result.items) {
+      await fileRef.delete();
+    }
+
+    // Optionally, you could also delete any subfolders
+    for (Reference dirRef in result.prefixes) {
+      await _deleteAllImagesInFolder(
+          dirRef.fullPath); // Recursively delete subfolders
     }
   }
 }

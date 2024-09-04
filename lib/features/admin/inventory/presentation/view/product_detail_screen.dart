@@ -23,72 +23,221 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ProductBloc, ProductState>(builder: (ctx, state) {
-        final index = state.products.indexWhere(
-          (item) => item.id == widget.productId,
-        );
+      body: BlocBuilder<ProductBloc, ProductState>(
+        builder: (ctx, state) {
+          final index = state.products.indexWhere(
+            (item) => item.id == widget.productId,
+          );
 
-        if (index < 0) {
-          return const Center(
-              child: CircularProgressIndicator(strokeWidth: 2.0));
-        }
-        final product = state.products[index];
-        return ProductCarousel(
-          imageUrlList: [...product.images, product.featuredImage],
-          productName: product.name,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(product.description),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10.0),
-                decoration:
-                    BoxDecoration(color: Theme.of(context).colorScheme.surface),
-                child: Column(
+          if (index < 0) {
+            return const Center(
+              child: CircularProgressIndicator(strokeWidth: 2.0),
+            );
+          }
+          final product = state.products[index];
+          return ProductCarousel(
+            imageUrlList: [...product.images, product.featuredImage],
+            productName: product.name,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _tile("Category", product.category.title),
-                    _tile(
-                      "Actual Price",
-                      AppConfig.priceFormat(product.price),
+                    Row(
+                      children: [
+                        Chip(
+                          label: Text(
+                            AppConfig.priceFormat(product.priceAfterDiscount),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          side: const BorderSide(color: Colors.green),
+                          backgroundColor: Colors.green,
+                        ),
+                        const SizedBox(width: 10.0),
+                        Chip(
+                          label: Text(
+                            product.category.title,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          side: const BorderSide(color: Colors.deepPurple),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          backgroundColor: Colors.deepPurple,
+                        ),
+                      ],
                     ),
-                    _tile(
-                      "Sale Price",
-                      AppConfig.priceFormat(product.salePrice),
+                    IconButton(
+                      onPressed: () {},
+                      style: IconButton.styleFrom(
+                          foregroundColor: AppConfig.appColor),
+                      icon: const Icon(Icons.edit_rounded),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                const Text(
+                  "Description",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Text(product.description),
+                const SizedBox(height: 20.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _tile(
+                        "MRP",
+                        AppConfig.priceFormat(product.salePrice),
+                      ),
                     ),
-                    _tile(
+                    const SizedBox(width: 10.0),
+                    Expanded(
+                      child: _tile(
+                        "Actual Price",
+                        AppConfig.priceFormat(product.price),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _tile(
                         "Profit",
                         AppConfig.priceFormat(
-                            product.salePrice - product.price)),
-                    _tile("Quantity", "${product.quantity}"),
-                    _tile(
+                            product.priceAfterDiscount - product.price),
+                      ),
+                    ),
+                    const SizedBox(width: 10.0),
+                    Expanded(
+                      child: _tile("Quantity", "${product.quantity}"),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _tile(
+                        "Discount",
+                        "${product.offerPercentage} %",
+                      ),
+                    ),
+                    const SizedBox(width: 10.0),
+                    Expanded(
+                      child: _tile(
                         "Expiry",
                         product.expiry == null
                             ? "Not applicable"
-                            : DateFormat.yMMMd().format(product.expiry!)),
+                            : DateFormat.yMMMd().format(product.expiry!),
+                      ),
+                    ),
                   ],
                 ),
-              )
-            ],
-          ),
-        );
-      }),
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(20.0),
+                  child: OutlinedButton(
+                    onPressed: () => _onDelete(product.id),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.red,
+                      side: BorderSide(
+                        color: Colors.red.shade400,
+                      ),
+                    ),
+                    child: Text("Delete ${product.name}"),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
-  Widget _tile(String title, String value) => ListTile(
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 13.0,
-            color: Colors.grey,
-          ),
+  Widget _tile(String title, String value) => Container(
+        padding: const EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          border: Border.all(color: Colors.grey, width: .3),
+          color: Theme.of(context).colorScheme.surface,
         ),
-        trailing: Text(
-          value,
-          style: TextStyle(
-            fontSize: 14.0,
-            color: Theme.of(context).primaryColor,
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 13.0,
+                color: Colors.grey,
+              ),
+            ),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).primaryColor,
+              ),
+            )
+          ],
         ),
       );
+
+  // Functions
+  void _onDelete(String productId) {
+    showDialog(
+      context: context,
+      builder: (ctx) => BlocConsumer<ProductBloc, ProductState>(
+        builder: (ctx1, state) {
+          return AlertDialog(
+            title: Text(
+              state.status == ProductStatus.deleting ? "Deleting" : "Delete",
+            ),
+            content: state.status == ProductStatus.deleting
+                ? const SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Center(
+                      child: CircularProgressIndicator(strokeWidth: 2.0),
+                    ),
+                  )
+                : const Text("Are you sure want to delete this product?"),
+            actions: state.status == ProductStatus.deleting
+                ? null
+                : [
+                    TextButton(
+                      onPressed: () => Navigator.pop(ctx),
+                      child: const Text("Cancel"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context
+                            .read<ProductBloc>()
+                            .add(DeleteProduct(productId: productId));
+                      },
+                      child: const Text("Delete"),
+                    ),
+                  ],
+          );
+        },
+        listener: (BuildContext ctx2, ProductState state) {
+          if (state.status == ProductStatus.deleted) {
+            Navigator.pop(ctx);
+            Navigator.pop(context);
+          }
+        },
+      ),
+    );
+  }
 }

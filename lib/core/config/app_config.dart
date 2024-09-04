@@ -6,5 +6,11 @@ sealed class AppConfig {
   static String fontFamily = "Poppins";
   static String priceSymbol = "₹";
 
-  static String priceFormat<T>(T price) => "₹ $price";
+  static String priceFormat<T>(T price) {
+    if (price is double) {
+      return "₹ ${price.toStringAsFixed(2)}";
+    } else {
+      return "₹ $price";
+    }
+  }
 }

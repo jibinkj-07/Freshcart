@@ -12,12 +12,14 @@ class ProductCarousel extends StatefulWidget {
   final List<String> imageUrlList;
   final String productName;
   final Widget child;
+  final double? margin;
 
   const ProductCarousel({
     super.key,
     required this.productName,
     required this.imageUrlList,
     required this.child,
+    this.margin,
   });
 
   @override
@@ -52,8 +54,14 @@ class _ProductCarouselState extends State<ProductCarousel> {
                 widget.productName,
                 style: const TextStyle(fontSize: 18.0),
               ),
-              background: SizedBox(
-                height: size.height * .35, // Height of the ListView
+              background: Container(
+                height: size.height * .35,
+                // Height of the ListView
+                margin: EdgeInsets.all(widget.margin ?? 15.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                clipBehavior: Clip.hardEdge,
                 child: Stack(
                   children: [
                     PageView(
@@ -111,7 +119,10 @@ class _ProductCarouselState extends State<ProductCarousel> {
                       bottom: 5.0,
                       left: 0.0,
                       right: 0.0,
-                      child: ImageIndicator(index: _index),
+                      child: ImageIndicator(
+                        index: _index,
+                        totalImages: widget.imageUrlList.length,
+                      ),
                     ),
                   ],
                 ),
