@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../inventory/presentation/bloc/category_bloc.dart';
+import '../../../inventory/presentation/bloc/product_bloc.dart';
+import '../view_model/home_helper.dart';
 
 /// @author : Jibin K John
 /// @date   : 17/08/2024
@@ -11,7 +16,7 @@ class InventoryDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15.0),
-      margin: const EdgeInsets.only(top: 5.0,bottom: 20.0),
+      margin: const EdgeInsets.only(top: 5.0, bottom: 20.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(25.0),
@@ -23,35 +28,38 @@ class InventoryDashboard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: ListTile(
-                    tileColor: Colors.amber.shade200,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    leading: const Icon(
-                      Icons.list_alt_rounded,
-                      color: Colors.black54,
-                    ),
-                    title: const Text(
-                      "Products",
-                      style: TextStyle(
+                  child: BlocBuilder<ProductBloc, ProductState>(
+                      builder: (ctx, state) {
+                    return ListTile(
+                      tileColor: Colors.amber.shade200,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      leading: const Icon(
+                        Icons.list_alt_rounded,
                         color: Colors.black54,
-                        fontSize: 12.0,
                       ),
-                    ),
-                    subtitle: const Text(
-                      "2300",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                        color: Colors.black87,
+                      title: const Text(
+                        "Products",
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 12.0,
+                        ),
                       ),
-                    ),
-                  ),
+                      subtitle: Text(
+                        state.products.length.toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    );
+                  }),
                 ),
                 const SizedBox(width: 10.0),
                 Expanded(
-                  child:ListTile(
+                  child: ListTile(
                     tileColor: Colors.green.shade300,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -75,7 +83,7 @@ class InventoryDashboard extends StatelessWidget {
                         color: Colors.black87,
                       ),
                     ),
-                  ) ,
+                  ),
                 ),
               ],
             ),
@@ -83,58 +91,66 @@ class InventoryDashboard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: ListTile(
-                    tileColor: Colors.deepPurple.shade200,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    leading: const Icon(
-                      Icons.category_outlined,
-                      color: Colors.black54,
-                    ),
-                    title: const Text(
-                      "Categories",
-                      style: TextStyle(
+                  child: BlocBuilder<CategoryBloc, CategoryState>(
+                      builder: (ctx, state) {
+                    return ListTile(
+                      tileColor: Colors.deepPurple.shade200,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      leading: const Icon(
+                        Icons.category_outlined,
                         color: Colors.black54,
-                        fontSize: 12.0,
                       ),
-                    ),
-                    subtitle: const Text(
-                      "20",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                        color: Colors.black87,
+                      title: const Text(
+                        "Categories",
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 12.0,
+                        ),
                       ),
-                    ),
-                  ),
+                      subtitle: Text(
+                        state.category.length.toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    );
+                  }),
                 ),
                 const SizedBox(width: 10.0),
                 Expanded(
-                  child: ListTile(
-                    tileColor: Colors.red.shade200,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    leading: const Icon(
-                      Icons.inventory_2_outlined,
-                      color: Colors.black54,
-                    ),
-                    title: const Text(
-                      "Out of stock",
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                    subtitle: const Text(
-                      "20",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                        color: Colors.black87,
-                      ),
-                    ),
+                  child: BlocBuilder<ProductBloc, ProductState>(
+                    builder: (ctx, state) {
+                      return ListTile(
+                        tileColor: Colors.red.shade200,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        leading: const Icon(
+                          Icons.inventory_2_outlined,
+                          color: Colors.black54,
+                        ),
+                        title: const Text(
+                          "Out of stock",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 12.0,
+                          ),
+                        ),
+                        subtitle: Text(
+                          HomeHelper.outOfStockProductsCount(state.products)
+                              .toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

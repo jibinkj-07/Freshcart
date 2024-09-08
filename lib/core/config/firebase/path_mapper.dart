@@ -2,6 +2,8 @@ sealed class PathMapper {
   static const String _userRoot = "user";
   static const String _inventoryRoot = "inventory";
   static const String _reportRoot = "report";
+  static const String _shopRoot = "shop";
+  static const String _orderRoot = "order";
 
   static String userPath(String uid) => "$_userRoot/$uid";
 
@@ -16,4 +18,7 @@ sealed class PathMapper {
   static String reportPath(String uid) => "$_reportRoot/bug/$uid";
 
   static String feedbackPath(String uid) => "$_reportRoot/feedback/$uid";
+
+  static String shopPath = _shopRoot;
+  static String shopStatusPath = "$_shopRoot/status";
 }
