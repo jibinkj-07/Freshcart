@@ -75,9 +75,9 @@ class InventoryRepoImpl implements InventoryRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> deleteProduct({required String id}) async {
+  Future<Either<Failure, bool>> deleteProduct({required ProductModel product}) async {
     if (await InternetConnection().hasInternetAccess) {
-      return await _inventoryFbDataSource.deleteProduct(id: id);
+      return await _inventoryFbDataSource.deleteProduct(product: product);
     } else {
       return Left(Failure(message: "Check your internet connection"));
     }

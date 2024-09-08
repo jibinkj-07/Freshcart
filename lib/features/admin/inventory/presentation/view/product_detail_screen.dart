@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../core/config/app_config.dart';
 import '../../../../../core/util/widget/product_carousel.dart';
+import '../../data/model/product_model.dart';
 import '../bloc/product_bloc.dart';
 
 /// @author : Jibin K John
@@ -147,7 +148,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   width: double.infinity,
                   margin: const EdgeInsets.all(20.0),
                   child: OutlinedButton(
-                    onPressed: () => _onDelete(product.id),
+                    onPressed: () => _onDelete(product),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.red,
                       side: BorderSide(
@@ -195,7 +196,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       );
 
   // Functions
-  void _onDelete(String productId) {
+  void _onDelete(ProductModel product) {
     showDialog(
       context: context,
       builder: (ctx) => BlocConsumer<ProductBloc, ProductState>(
@@ -224,7 +225,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       onPressed: () {
                         context
                             .read<ProductBloc>()
-                            .add(DeleteProduct(productId: productId));
+                            .add(DeleteProduct(product: product));
                       },
                       child: const Text("Delete"),
                     ),

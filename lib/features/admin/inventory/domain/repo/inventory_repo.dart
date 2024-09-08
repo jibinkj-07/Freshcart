@@ -17,7 +17,7 @@ abstract class InventoryRepo {
     required File featuredImage,
   });
 
-  Future<Either<Failure, bool>> deleteProduct({required String id});
+  Future<Either<Failure, bool>> deleteProduct({required ProductModel product});
 
   /// CATEGORY
   Future<Either<Failure, List<CategoryModel>>> getAllCategory();

@@ -78,12 +78,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ) async {
     try {
       emit(state.copyWith(status: ProductStatus.deleting, error: null));
-      final result = await _inventoryRepo.deleteProduct(id: event.productId);
+      final result = await _inventoryRepo.deleteProduct(product:  event.product);
       if (result.isLeft) {
         emit(state.copyWith(status: ProductStatus.idle, error: result.left));
       } else {
         final updatedList = List<ProductModel>.from(state.products)
-          ..removeWhere((item) => item.id == event.productId);
+          ..removeWhere((item) => item.id == event.product.id);
         emit(
           state.copyWith(
             status: ProductStatus.deleted,

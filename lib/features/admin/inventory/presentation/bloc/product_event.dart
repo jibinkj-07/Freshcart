@@ -20,12 +20,12 @@ class AddProduct extends ProductEvent {
 }
 
 class DeleteProduct extends ProductEvent {
-  final String productId;
+  final ProductModel product;
 
-  const DeleteProduct({required this.productId});
+  const DeleteProduct({required this.product});
 
   @override
-  List<Object?> get props => [productId];
+  List<Object?> get props => [ product];
 }
 
 class GetAllProduct extends ProductEvent {

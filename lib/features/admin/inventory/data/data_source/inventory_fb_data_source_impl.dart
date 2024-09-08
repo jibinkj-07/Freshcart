@@ -115,12 +115,11 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
   }
 
   @override
-  Future<Either<Failure, bool>> deleteProduct({required String id}) async {
+  Future<Either<Failure, bool>> deleteProduct({required ProductModel product}) async {
     try {
-      // todo delete all images from storage bucket
       // Delete all stored images
-     // await _deleteAllImagesInFolder("Products/${product.category.title}/$id");
-      await _firebaseDatabase.ref("${PathMapper.productPath}/$id").remove();
+     await _deleteAllImagesInFolder("Products/${product.category.title}/${product.name}");
+      await _firebaseDatabase.ref("${PathMapper.productPath}/${product.id}").remove();
 
       return const Right(true);
     } catch (e) {
