@@ -27,6 +27,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         case GetAllProduct():
           await _getAllProduct(event, emit);
           break;
+        case UpdateProduct():
+          await _updateProduct(event, emit);
+          break;
       }
     });
   }
@@ -72,13 +75,56 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     }
   }
 
+  Future<void> _updateProduct(
+    UpdateProduct event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(state.copyWith(status: ProductStatus.adding, error: null));
+    try {
+      final result = await _inventoryRepo.deleteProduct(product: event.product);
+
+      if (result.isLeft) {
+        emit(state.copyWith(status: ProductStatus.idle, error: result.left));
+      } else {
+        List<ProductModel> updatedList = List<ProductModel>.from(state.products)
+          ..removeWhere((item) => item.id == event.product.id);
+        final addResult = await _inventoryRepo.addProduct(
+          product: event.product,
+          images: event.images,
+          featuredImage: event.featuredImage,
+        );
+        if (addResult.isLeft) {
+          emit(
+            state.copyWith(status: ProductStatus.idle, error: addResult.left),
+          );
+        } else {
+          updatedList.add(addResult.right);
+          emit(
+            state.copyWith(
+              status: ProductStatus.added,
+              products: updatedList,
+              error: null,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      log("er: [_updateProduct][product_bloc.dart] $e");
+      emit(
+        state.copyWith(
+          error: Failure(message: "An unexpected failure occurred."),
+        ),
+      );
+    }
+  }
+
   Future<void> _deleteProduct(
     DeleteProduct event,
     Emitter<ProductState> emit,
   ) async {
     try {
       emit(state.copyWith(status: ProductStatus.deleting, error: null));
-      final result = await _inventoryRepo.deleteProduct(product:  event.product);
+      final result = await _inventoryRepo.deleteProduct(product: event.product);
       if (result.isLeft) {
         emit(state.copyWith(status: ProductStatus.idle, error: result.left));
       } else {

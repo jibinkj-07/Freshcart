@@ -12,6 +12,7 @@ import '../../data/model/category_model.dart';
 import '../../data/model/product_model.dart';
 import '../bloc/category_bloc.dart';
 import '../bloc/product_bloc.dart';
+import '../view_model/inventory_helper.dart';
 import '../widgets/featured_image.dart';
 import '../widgets/product_image_uploader.dart';
 
@@ -20,7 +21,9 @@ import '../widgets/product_image_uploader.dart';
 /// @time   : 13:52:00
 
 class AddProductScreen extends StatefulWidget {
-  const AddProductScreen({super.key});
+  final ProductModel? product;
+
+  const AddProductScreen({super.key, this.product});
 
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();
@@ -46,6 +49,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   void initState() {
     _expiryController.text = _dateFormatter(_expiry);
+    _initProduct(widget.product);
     super.initState();
   }
 
@@ -68,7 +72,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text("Add Product"),
+        title: Text(widget.product == null ? "Add Product" : "Update Product"),
         centerTitle: true,
       ),
       body: Form(
@@ -78,6 +82,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           children: [
             OutlinedTextField(
               textFieldKey: "name",
+              initialValue: widget.product?.name,
               isObscure: false,
               hintText: "Name",
               inputAction: TextInputAction.next,
@@ -93,6 +98,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             const SizedBox(height: 20.0),
             OutlinedTextField(
               textFieldKey: "description",
+              initialValue: widget.product?.description,
               isObscure: false,
               minLines: 1,
               maxLines: 5,
@@ -103,6 +109,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ),
             const SizedBox(height: 20.0),
             BlocBuilder<CategoryBloc, CategoryState>(builder: (ctx, state) {
+              CategoryModel? category;
               if (state.category.isEmpty) {
                 return TextButton.icon(
                     onPressed: () => Navigator.of(context).pushNamed(
@@ -111,7 +118,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     icon: const Icon(Icons.add_rounded),
                     label: const Text("Create category"));
               }
+              if (widget.product != null) {
+                category = state.category.firstWhere(
+                  (item) => item.id == widget.product!.category.id,
+                );
+              }
               return DropdownButtonFormField<CategoryModel>(
+                value: category,
                 borderRadius: BorderRadius.circular(20.0),
                 style: TextStyle(
                   fontSize: 15.0,
@@ -172,6 +185,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 Expanded(
                   child: OutlinedTextField(
                     textFieldKey: "quantity",
+                    initialValue: widget.product?.quantity.toString(),
                     isObscure: false,
                     hintText: "Quantity",
                     inputAction: TextInputAction.next,
@@ -195,6 +209,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 Expanded(
                   child: OutlinedTextField(
                     textFieldKey: "offer",
+                    initialValue: widget.product?.offerPercentage.toString(),
                     isObscure: false,
                     hintText: "Offer in percentage",
                     inputAction: TextInputAction.next,
@@ -205,7 +220,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       final value = data.toString().trim();
                       if (!_isNumeric(value)) {
                         return "Invalid format";
-                      }else if(int.parse(value)>100){
+                      } else if (int.parse(value) > 100) {
                         return "Must be less than 100";
                       }
                       return null;
@@ -222,6 +237,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 Expanded(
                   child: OutlinedTextField(
                     textFieldKey: "price",
+                    initialValue: widget.product?.price.toString(),
                     isObscure: false,
                     hintText: "Price",
                     inputAction: TextInputAction.next,
@@ -244,6 +260,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 Expanded(
                   child: OutlinedTextField(
                     textFieldKey: "salesPrice",
+                    initialValue: widget.product?.salePrice.toString(),
                     isObscure: false,
                     hintText: "Sales Price",
                     inputAction: TextInputAction.next,
@@ -332,7 +349,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   return AnimatedLoadingButton(
                     onPressed: _onAdd,
                     loading: loading,
-                    child: const Text("Add"),
+                    child: Text(widget.product == null ? "Add" : "Update"),
                   );
                 },
               ),
@@ -344,7 +361,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   void _onAdd() {
-    log("expiry is $_expiry");
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       FocusScope.of(context).unfocus();
@@ -361,7 +377,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
         return;
       }
       final product = ProductModel(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: widget.product != null
+            ? widget.product!.id
+            : DateTime.now().millisecondsSinceEpoch.toString(),
         name: _name,
         description: _description,
         quantity: _quantity,
@@ -369,18 +387,26 @@ class _AddProductScreenState extends State<AddProductScreen> {
         featuredImage: "",
         price: _price,
         salePrice: _salesPrice,
-        comments: [],
+        comments: widget.product != null ? widget.product!.comments : [],
         images: [],
         expiry: _expiryNotApplicable.value ? null : _expiry,
         offerPercentage: _offer,
       );
-      context.read<ProductBloc>().add(
-            AddProduct(
+      if (widget.product != null) {
+        context.read<ProductBloc>().add(UpdateProduct(
               product: product,
               images: _images.value,
               featuredImage: _featuredImage.value!,
-            ),
-          );
+            ));
+      } else {
+        context.read<ProductBloc>().add(
+              AddProduct(
+                product: product,
+                images: _images.value,
+                featuredImage: _featuredImage.value!,
+              ),
+            );
+      }
     }
   }
 
@@ -400,5 +426,30 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   String _dateFormatter(DateTime dateTime) {
     return DateFormat.yMMMd().format(dateTime);
+  }
+
+  Future<void> _initProduct(ProductModel? product) async {
+    if (product != null) {
+      List<File> images = [];
+      for (final image in product.images) {
+        images.add(await InventoryHelper.urlToFile(image));
+      }
+      _images.value = images;
+      _featuredImage.value =
+          await InventoryHelper.urlToFile(product.featuredImage);
+      _selectedCategory.value = product.category;
+      if (product.expiry != null) {
+        _expiry = product.expiry!;
+      } else {
+        _expiryNotApplicable.value = true;
+      }
+      _expiryController.text = _dateFormatter(_expiry);
+      _name = product.name;
+      _description = product.description;
+      _quantity = product.quantity;
+      _price = product.price;
+      _salesPrice = product.salePrice;
+      _offer = product.offerPercentage;
+    }
   }
 }

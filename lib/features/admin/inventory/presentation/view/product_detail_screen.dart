@@ -6,6 +6,7 @@ import '../../../../../core/config/app_config.dart';
 import '../../../../../core/util/widget/product_carousel.dart';
 import '../../data/model/product_model.dart';
 import '../bloc/product_bloc.dart';
+import 'add_product_screen.dart';
 
 /// @author : Jibin K John
 /// @date   : 28/08/2024
@@ -73,7 +74,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ],
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => AddProductScreen(product: product),
+                        ),
+                      ),
                       style: IconButton.styleFrom(
                           foregroundColor: AppConfig.appColor),
                       icon: const Icon(Icons.edit_rounded),

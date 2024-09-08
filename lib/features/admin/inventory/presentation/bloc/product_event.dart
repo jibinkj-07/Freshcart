@@ -19,13 +19,28 @@ class AddProduct extends ProductEvent {
   List<Object?> get props => [product];
 }
 
+class UpdateProduct extends ProductEvent {
+  final ProductModel product;
+  final List<File> images;
+  final File featuredImage;
+
+  const UpdateProduct({
+    required this.product,
+    required this.images,
+    required this.featuredImage,
+  });
+
+  @override
+  List<Object?> get props => [product];
+}
+
 class DeleteProduct extends ProductEvent {
   final ProductModel product;
 
   const DeleteProduct({required this.product});
 
   @override
-  List<Object?> get props => [ product];
+  List<Object?> get props => [product];
 }
 
 class GetAllProduct extends ProductEvent {

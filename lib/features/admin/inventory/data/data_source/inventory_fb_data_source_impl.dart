@@ -58,7 +58,7 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
       List<String> urls = [];
       // Uploading featured Image into cloud storage bucket
       final featuredUrl = await _uploadImage(
-        path: "Products/${product.category.title}/${product.id}"
+        path: "Products/${product.category.title}/${product.name}"
             "/${DateTime.now().millisecondsSinceEpoch}-featured.jpg",
         image: featuredImage,
       );
@@ -67,7 +67,7 @@ class InventoryFbDataSourceImpl implements InventoryFbDataSource {
       for (final image in images) {
         urls.add(
           await _uploadImage(
-            path: "Products/${product.category.title}/${product.id}"
+            path: "Products/${product.category.title}/${product.name}"
                 "/${DateTime.now().millisecondsSinceEpoch}.jpg",
             image: image,
           ),

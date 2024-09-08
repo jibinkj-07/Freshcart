@@ -29,6 +29,7 @@ dependencies:
   qr_code_scanner: ^1.0.1 # for scanning QR codes
   qr_flutter: ^4.1.0 # to generate QR code
   intl: ^0.18.1 # for date formatting
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
