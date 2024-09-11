@@ -28,6 +28,7 @@ class _ShopStatusState extends State<ShopStatus> {
   @override
   void dispose() {
     _status.dispose();
+    HomeHelper.disposeShopStatusListener();
     super.dispose();
   }
 

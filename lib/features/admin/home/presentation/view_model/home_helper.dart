@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -9,9 +10,11 @@ import '../widget/shop_status.dart';
 
 sealed class HomeHelper {
   static final _firebaseRef = FirebaseDatabase.instance;
+  static StreamSubscription? _shopStatusSubscription;
 
   static listenShopStatus({required ValueNotifier<Status> status}) {
-    _firebaseRef.ref(PathMapper.shopStatusPath).onValue.listen((event) {
+    _shopStatusSubscription =
+        _firebaseRef.ref(PathMapper.shopStatusPath).onValue.listen((event) {
       if (event.snapshot.exists) {
         if (event.snapshot.value.toString().toLowerCase() == "open") {
           status.value = Status.open;
@@ -29,6 +32,12 @@ sealed class HomeHelper {
       });
     } catch (e) {
       log("er [toggleShopStatus][home_helper.dart] $e");
+    }
+  }
+
+  static void disposeShopStatusListener() {
+    if (_shopStatusSubscription != null) {
+      _shopStatusSubscription!.cancel();
     }
   }
 

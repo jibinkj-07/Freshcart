@@ -56,7 +56,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _initUser(InitUser event, Emitter<AuthState> emit) async {
     try {
       // Checking if user is authenticated or not
-      if (!await _userRepo.userAuthenticated()) return;
+      if (!await _userRepo.userAuthenticated()) {
+        // Let be know onboard bloc to update its status
+        _onboardBloc.add(
+          const UpdateStatus(onboardStatus: OnboardStatus.onboard),
+        );
+        return;
+      }
 
       final uid = _firebaseAuth.currentUser!.uid;
       // Attempt to retrieve user details from cache first
@@ -159,6 +165,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (result.isLeft) {
         emit(state.copyWith(error: result.left, authStatus: AuthStatus.idle));
       } else {
+        _onboardBloc.add(
+          const UpdateStatus(onboardStatus: OnboardStatus.onboard),
+        );
         emit(const AuthState.initial());
       }
     } catch (e) {
