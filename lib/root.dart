@@ -23,11 +23,8 @@ class Root extends StatelessWidget {
             switch (onboardState.status) {
               case OnboardStatus.onboard:
                 return const OnboardScreen();
-
               case OnboardStatus.onboarded:
-                if (authState.userInfo == null) {
-                  return const UserHomeScreen();
-                } else if (authState.userInfo!.isAdmin) {
+                if (authState.userInfo!.isAdmin) {
                   return const AdminHomeScreen();
                 } else {
                   return const UserHomeScreen();

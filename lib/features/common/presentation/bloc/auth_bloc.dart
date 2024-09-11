@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/util/error/failure.dart';
+import '../../../onboard/presentation/bloc/onboard_bloc.dart';
 import '../../data/model/user_model.dart';
 import '../../domain/repo/user_repo.dart';
 
@@ -14,9 +15,10 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserRepo _userRepo;
+  final OnboardBloc _onboardBloc;
   final FirebaseAuth _firebaseAuth;
 
-  AuthBloc(this._userRepo, this._firebaseAuth)
+  AuthBloc(this._userRepo, this._firebaseAuth, this._onboardBloc)
       : super(const AuthState.initial()) {
     on<AuthEvent>(
       (event, emit) async {
@@ -71,6 +73,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             authStatus: AuthStatus.idle,
           ),
         );
+        // Let be know onboard bloc to update its status
+        _onboardBloc.add(
+          const UpdateStatus(onboardStatus: OnboardStatus.onboarded),
+        );
       }
 
       // Checking if user email is verified or not
@@ -90,6 +96,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             error: null,
             authStatus: AuthStatus.idle,
           ),
+        );
+        // Let be know onboard bloc to update its status
+        _onboardBloc.add(
+          const UpdateStatus(onboardStatus: OnboardStatus.onboarded),
         );
       }
     } catch (e) {

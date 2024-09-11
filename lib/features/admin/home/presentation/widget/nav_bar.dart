@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/config/app_config.dart';
+
 /// @author : Jibin K John
 /// @date   : 08/08/2024
 /// @time   : 14:01:11
@@ -32,7 +34,8 @@ class NavBar extends StatelessWidget {
       child: NavigationBar(
         selectedIndex: selectedIndex,
         onDestinationSelected: (i) => index.value = i,
-        surfaceTintColor: Colors.transparent,
+        surfaceTintColor: AppConfig.appColor,
+        elevation: 1.0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         indicatorColor: Colors.amber.shade200,
         destinations: [

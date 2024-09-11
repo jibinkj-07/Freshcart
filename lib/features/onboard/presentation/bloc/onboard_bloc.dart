@@ -13,13 +13,26 @@ class OnboardBloc extends Bloc<OnboardEvent, OnboardState> {
 
   OnboardBloc(this._onboardRepo) : super(const OnboardState.loading()) {
     on<OnboardEvent>((event, emit) async {
-      if (event is AppStarted) {
-        final isNew = _onboardRepo.getIsNewUser();
-        if (isNew) {
-          emit(const OnboardState.onboard());
-        } else {
-          emit(const OnboardState.onboarded());
-        }
+      switch (event) {
+        case AppStarted():
+          final isNew = _onboardRepo.getIsNewUser();
+          if (isNew) {
+            emit(const OnboardState.onboard());
+          }
+          break;
+        case UpdateStatus():
+          switch (event.onboardStatus) {
+            case OnboardStatus.loading:
+              emit(const OnboardState.loading());
+              break;
+            case OnboardStatus.onboard:
+              emit(const OnboardState.onboard());
+              break;
+            case OnboardStatus.onboarded:
+              emit(const OnboardState.onboarded());
+              break;
+          }
+          break;
       }
     });
   }

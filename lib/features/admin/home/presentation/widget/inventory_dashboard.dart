@@ -18,7 +18,10 @@ class InventoryDashboard extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       margin: const EdgeInsets.only(top: 5.0, bottom: 20.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme
+            .of(context)
+            .colorScheme
+            .surface,
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: Material(
@@ -30,32 +33,32 @@ class InventoryDashboard extends StatelessWidget {
                 Expanded(
                   child: BlocBuilder<ProductBloc, ProductState>(
                       builder: (ctx, state) {
-                    return ListTile(
-                      tileColor: Colors.amber.shade200,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      leading: const Icon(
-                        Icons.list_alt_rounded,
-                        color: Colors.black54,
-                      ),
-                      title: const Text(
-                        "Products",
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 12.0,
-                        ),
-                      ),
-                      subtitle: Text(
-                        state.products.length.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    );
-                  }),
+                        return ListTile(
+                          tileColor: Colors.amber.shade200,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          leading: const Icon(
+                            Icons.list_alt_rounded,
+                            color: Colors.black54,
+                          ),
+                          title: const Text(
+                            "Products",
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          subtitle: Text(
+                            state.products.length.toString(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        );
+                      }),
                 ),
                 const SizedBox(width: 10.0),
                 Expanded(
@@ -93,32 +96,32 @@ class InventoryDashboard extends StatelessWidget {
                 Expanded(
                   child: BlocBuilder<CategoryBloc, CategoryState>(
                       builder: (ctx, state) {
-                    return ListTile(
-                      tileColor: Colors.deepPurple.shade200,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      leading: const Icon(
-                        Icons.category_outlined,
-                        color: Colors.black54,
-                      ),
-                      title: const Text(
-                        "Categories",
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 12.0,
-                        ),
-                      ),
-                      subtitle: Text(
-                        state.category.length.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    );
-                  }),
+                        return ListTile(
+                          tileColor: Colors.deepPurple.shade200,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          leading: const Icon(
+                            Icons.category_outlined,
+                            color: Colors.black54,
+                          ),
+                          title: const Text(
+                            "Categories",
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          subtitle: Text(
+                            state.category.length.toString(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        );
+                      }),
                 ),
                 const SizedBox(width: 10.0),
                 Expanded(
